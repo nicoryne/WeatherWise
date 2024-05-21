@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/action_splashScreenFragment_to_boardingFragment"
-            app:destination="@id/boardingFragment" />
+            app:destination="@id/boardingFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/boardingFragment"

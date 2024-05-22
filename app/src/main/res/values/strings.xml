@@ -7,4 +7,8 @@
     <string name="text_skip">Skip</string>
     <string name="text_boarding_1">Daily weather predictions and advice</string>
     <string name="text_boarding_2">Basic health and first-aid practices, right in your hands</string>
+    <string name="text_sign_up">SIGN UP</string>
+    <string name="text_login">LOGIN</string>
+    <string name="text_let_s_get_started">Let\'s get started!</string>
+    <string name="text_be_updated">Be updated</string>
 </resources>

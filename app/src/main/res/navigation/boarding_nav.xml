@@ -20,7 +20,15 @@
     <fragment
         android:id="@+id/onboardingFragmentSecond2"
         android:name="com.example.weatherwise.fragments.OnboardingFragmentSecond"
-        android:label="OnboardingFragmentSecond" />
+        android:label="OnboardingFragmentSecond" >
+        <action
+            android:id="@+id/action_onboardingFragmentSecond2_to_boardingFragment"
+            app:destination="@id/boardingFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.example.weatherwise.fragments.SplashScreenFragment"
@@ -32,4 +40,9 @@
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out" />
     </fragment>
+    <fragment
+        android:id="@+id/boardingFragment"
+        android:name="com.example.weatherwise.fragments.BoardingFragment"
+        android:label="fragment_boarding"
+        tools:layout="@layout/fragment_boarding" />
 </navigation>

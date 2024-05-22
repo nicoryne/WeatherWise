@@ -18,10 +18,12 @@
         app:navGraph="@navigation/boarding_nav"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/containerBottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav"/>
+        app:menu="@menu/bottom_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.weatherwise.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -9,7 +10,7 @@ import com.example.weatherwise.databinding.ActivityLauncherBinding;
 
 public class LauncherActivity extends AppCompatActivity {
 
-    private final String DEBUG_TAG = "MainActivity";
+    private final String DEBUG_TAG = "LauncherActivity";
 
     private ActivityLauncherBinding binding;
 
@@ -20,11 +21,14 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLauncherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        handleSplashScreen();
     }
 
     private void handleSplashScreen() {
         new Handler().postDelayed(() -> {
-
+            Intent intent = new Intent(LauncherActivity.this, BoardingActivity.class);
+            startActivity(intent);
         }, SPLASH_SCREEN_DURATION);
     }
 }

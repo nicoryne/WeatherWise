@@ -35,7 +35,6 @@ public class OnboardingFragmentFirst extends Fragment {
         root = binding.getRoot();
 
         handleNextButton();
-
         return root;
     }
 

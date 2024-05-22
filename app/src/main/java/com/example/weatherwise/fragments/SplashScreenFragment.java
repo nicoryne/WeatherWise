@@ -1,7 +1,6 @@
 package com.example.weatherwise.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -13,8 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.weatherwise.R;
-import com.example.weatherwise.activities.BoardingActivity;
-import com.example.weatherwise.activities.LauncherActivity;
 import com.example.weatherwise.databinding.FragmentSplashScreenBinding;
 
 @SuppressLint("CustomSplashScreen")
@@ -52,8 +49,7 @@ public class SplashScreenFragment extends Fragment {
 
     private void startSplashScreen() {
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(, );
-            startActivity(intent);
+            Navigation.findNavController(root).navigate(R.id.action_splashScreenFragment_to_onboardingFragmentFirst);
         }, SPLASH_SCREEN_DURATION);
     }
 }

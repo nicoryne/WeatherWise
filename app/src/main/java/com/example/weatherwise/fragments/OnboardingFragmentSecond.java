@@ -16,6 +16,7 @@ public class OnboardingFragmentSecond extends Fragment {
 
     private FragmentOnboardingSecondBinding binding;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/boarding_nav"
+    app:startDestination="@id/splashScreenFragment">
+    <fragment
+        android:id="@+id/onboardingFragmentFirst"
+        android:name="com.example.weatherwise.fragments.OnboardingFragmentFirst"
+        android:label="fragment_onboarding_first"
+        tools:layout="@layout/fragment_onboarding_first" >
+        <action
+            android:id="@+id/action_onboardingFragmentFirst_to_onboardingFragmentSecond2"
+            app:destination="@id/onboardingFragmentSecond2"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardingFragmentSecond2"
+        android:name="com.example.weatherwise.fragments.OnboardingFragmentSecond"
+        android:label="OnboardingFragmentSecond" >
+        <action
+            android:id="@+id/action_onboardingFragmentSecond2_to_boardingFragment"
+            app:destination="@id/boardingFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.weatherwise.fragments.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_onboardingFragmentFirst"
+            app:destination="@id/onboardingFragmentFirst"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/boardingFragment"
+        android:name="com.example.weatherwise.fragments.BoardingFragment"
+        android:label="fragment_boarding"
+        tools:layout="@layout/fragment_boarding" />
+</navigation>

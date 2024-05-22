@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">WeatherWise</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="content_description">Material</string>
+
+    <string name="text_splash_screen">the trusty weather companion</string>
+    <string name="text_skip">Skip</string>
+    <string name="text_boarding_1">Daily weather predictions and advice</string>
+    <string name="text_boarding_2">Basic health and first-aid practices, right in your hands</string>
+    <string name="text_sign_up">SIGN UP</string>
+    <string name="text_login">LOGIN</string>
+    <string name="text_let_s_get_started">Let\'s get started!</string>
+    <string name="text_be_updated">Be updated</string>
 </resources>

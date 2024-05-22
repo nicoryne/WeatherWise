@@ -11,4 +11,8 @@
     <string name="text_login">LOGIN</string>
     <string name="text_let_s_get_started">Let\'s get started!</string>
     <string name="text_be_updated">Be updated</string>
+    <string name="menu_games">Games</string>
+    <string name="menu_health">Health</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
 </resources>

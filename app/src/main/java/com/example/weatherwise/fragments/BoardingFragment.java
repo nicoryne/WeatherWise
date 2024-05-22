@@ -15,7 +15,6 @@ import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.FragmentBoardingBinding;
 import com.example.weatherwise.databinding.FragmentSplashScreenBinding;
 
-@SuppressLint("CustomSplashScreen")
 public class BoardingFragment extends Fragment {
 
     private final String DEBUG_TAG = "BoardingFragment";

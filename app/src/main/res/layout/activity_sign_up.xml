@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#FFFFFFFF" android:clipChildren="false" android:clipToPadding="false" android:orientation="vertical">
+    <ScrollView android:id="@+id/ruggwdqgb6x" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:background="#FFFFFFFF" android:clipChildren="false" android:clipToPadding="false" android:fillViewport="true" android:paddingTop="17dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:clipChildren="false" android:clipToPadding="false" android:orientation="vertical">
+            <LinearLayout android:id="@+id/r5qg3htlbpmj" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#FFFFFFFF" android:clipChildren="false" android:clipToPadding="false" android:orientation="vertical" android:paddingTop="24dp" android:paddingBottom="103dp">
+                <ImageButton android:id="@+id/btnBack" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="20dp" android:layout_marginBottom="68dp" android:background="@null" android:scaleType="fitXY" android:src="@drawable/arrow_left"/>
+                <TextView android:id="@+id/rt1egbkmfzw" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="146dp" android:layout_marginBottom="32dp" android:text="Sign Up" android:textColor="#221F1F" android:textSize="18sp"/>
+                <LinearLayout android:id="@+id/r169cxzsbnbh" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="49dp" android:layout_marginBottom="24dp" android:background="@drawable/s1a221f1fsw1cr6bfff9f9fb" android:clipChildren="false" android:clipToPadding="false" android:gravity="center_vertical" android:orientation="horizontal" android:paddingHorizontal="12dp" android:paddingVertical="11dp">
+                    <ImageView android:id="@+id/rzthf64h6z0q" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginEnd="17dp" android:scaleType="fitXY" android:src="@drawable/user"/>
+                    <TextView android:id="@+id/rj2j77p8cyhl" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:text="Enter your name" android:textColor="#221F1F" android:textSize="14sp"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/ray6atgdcm3j" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="49dp" android:layout_marginBottom="24dp" android:background="@drawable/s1a221f1fsw1cr6bfff9f9fb" android:clipChildren="false" android:clipToPadding="false" android:gravity="center_vertical" android:orientation="horizontal" android:paddingHorizontal="14dp" android:paddingVertical="13dp">
+                    <ImageView android:id="@+id/r6n7alwhqloh" android:layout_width="16dp" android:layout_height="16dp" android:layout_marginEnd="19dp" android:scaleType="fitXY" android:src="@drawable/sms"/>
+                    <TextView android:id="@+id/rnt2ha1zl5ea" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:text="Enter your email" android:textColor="#221F1F" android:textSize="14sp"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/rbvvdsp23u1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="49dp" android:layout_marginBottom="24dp" android:background="@drawable/s1a221f1fsw1cr6bfff9f9fb" android:clipChildren="false" android:clipToPadding="false" android:gravity="center_vertical" android:orientation="horizontal" android:paddingHorizontal="12dp" android:paddingVertical="10dp">
+                    <ImageView android:id="@+id/rsmc06asuxqq" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginEnd="17dp" android:scaleType="fitXY" android:src="@drawable/lock"/>
+                    <TextView android:id="@+id/rpjx089huau" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Enter your password" android:textColor="#221F1F" android:textSize="14sp"/>
+                    <LinearLayout android:id="@+id/rp2qm3axfecq" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:clipChildren="false" android:clipToPadding="false" android:orientation="vertical"/>
+                    <ImageView android:id="@+id/rysmufg0hkp" android:layout_width="20dp" android:layout_height="20dp" android:scaleType="fitXY" android:src="@drawable/eye_slash"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/rs9ix4x63qui" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="49dp" android:layout_marginBottom="24dp" android:background="@drawable/s1a221f1fsw1cr6bfff9f9fb" android:clipChildren="false" android:clipToPadding="false" android:gravity="center_vertical" android:orientation="horizontal" android:paddingHorizontal="13dp" android:paddingVertical="10dp">
+                    <ImageView android:id="@+id/ruiatr39zqj" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginEnd="17dp" android:scaleType="fitXY" android:src="@drawable/lock"/>
+                    <TextView android:id="@+id/rql233vfn86" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Verify your password" android:textColor="#221F1F" android:textSize="14sp"/>
+                    <LinearLayout android:id="@+id/r52tk09epn8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:clipChildren="false" android:clipToPadding="false" android:orientation="vertical"/>
+                    <ImageView android:id="@+id/rd1kz1ou46nb" android:layout_width="20dp" android:layout_height="20dp" android:scaleType="fitXY" android:src="@drawable/eye_slash"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/rxpyoywkqhnh" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="49dp" android:layout_marginBottom="25dp" android:background="@drawable/s1a221f1fsw1cr6bfff9f9fb" android:clipChildren="false" android:clipToPadding="false" android:gravity="center_vertical" android:orientation="horizontal" android:paddingHorizontal="15dp" android:paddingVertical="11dp">
+                    <RelativeLayout android:id="@+id/rl3liqnxar8b_rl" android:layout_width="18dp" android:layout_height="18dp" android:layout_marginEnd="17dp" android:clipChildren="false" android:clipToPadding="false">
+                        <ImageView android:id="@+id/rl3liqnxar8b" android:layout_width="18dp" android:layout_height="18dp" android:scaleType="fitXY" android:src="@drawable/address"/>
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:clipChildren="false" android:clipToPadding="false" android:orientation="vertical" android:paddingHorizontal="6dp"/>
+                    </RelativeLayout>
+                    <TextView android:id="@+id/rf1kgso2n9vv" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:text="Enter your address" android:textColor="#221F1F" android:textSize="14sp"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/r751fju8idip" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="48dp" android:layout_marginBottom="36dp" android:clipChildren="false" android:clipToPadding="false" android:gravity="center_vertical" android:orientation="horizontal">
+                    <LinearLayout android:id="@+id/rczrqtel6j5n" android:layout_width="20dp" android:layout_height="20dp" android:background="@drawable/s66221f1fsw1cr8bffffffff" android:clipChildren="false" android:clipToPadding="false" android:orientation="vertical"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <TextView android:id="@+id/rk6lkihueiq" android:layout_width="227dp" android:layout_height="wrap_content" android:text="I agree to the Terms of Service and Privacy Policy" android:textSize="11sp"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/rb7wmtku08j" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="49dp" android:layout_marginBottom="36dp" android:background="@drawable/cr32lr270ffffa07affffa07a" android:clipChildren="false" android:clipToPadding="false" android:gravity="center_horizontal" android:orientation="vertical" android:paddingVertical="17dp">
+                    <TextView android:id="@+id/rom1js2lztm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REGISTER" android:textColor="#FFFFFF" android:textSize="16sp"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/rfdommh9rwl" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="82dp" android:clipChildren="false" android:clipToPadding="false" android:gravity="center_vertical" android:orientation="horizontal">
+                    <TextView android:id="@+id/r631wcrldf9k" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Already have an account?" android:textColor="#221F1F" android:textSize="11sp"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <TextView android:id="@+id/r9i7aka515z" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sign In" android:textColor="#407CE2" android:textSize="11sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -61,7 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_shape">
 
                 <EditText
                     android:id="@+id/txtPassword"
@@ -70,10 +71,10 @@
                     android:layout_marginBottom="20dp"
                     android:layout_x="7dp"
                     android:layout_y="93dp"
-                    android:background="@drawable/rounded_shape"
                     android:drawableLeft="@drawable/lock"
                     android:drawablePadding="8dp"
                     android:ems="10"
+                    android:background="null"
                     android:fontFamily="@font/archivo_narrow"
                     android:hint="Enter your password"
                     android:inputType="textPassword" />
@@ -90,16 +91,17 @@
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_shape">
 
             <EditText
                 android:id="@+id/txtVerify"
                 android:layout_width="310dp"
                 android:layout_height="46dp"
                 android:layout_marginBottom="20dp"
+                android:background="null"
                 android:layout_x="7dp"
                 android:layout_y="93dp"
-                android:background="@drawable/rounded_shape"
                 android:drawableLeft="@drawable/lock"
                 android:drawablePadding="8dp"
                 android:ems="10"
@@ -128,29 +130,19 @@
                 android:hint="Enter your Address"
                 android:inputType="text" />
 
-            <RelativeLayout
+
+            <CheckBox
+                android:id="@+id/checkBox"
                 android:layout_width="match_parent"
-                android:layout_height="69dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
+                android:layout_height="76dp"
+                android:fontFamily="@font/archivo_narrow"
+                android:gravity="center"
+                android:text="I agree to the Terms of Service and Privacy Policy"
+                android:textSize="15dp" />
 
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CheckBox" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="69dp"
-                    android:fontFamily="@font/archivo_narrow"
-                    android:gravity="center"
-                    android:text="I agree to the Terms of Service and Privacy Policy"
-                    android:textSize="15dp" />
-            </RelativeLayout>
             <Button
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -159,7 +151,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lblSignUp"
+            android:id="@+id/lblSignIn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

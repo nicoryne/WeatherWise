@@ -1,4 +1,4 @@
-package com.example.weatherwise;
+package com.example.weatherwise.util;
 
 import androidx.lifecycle.ViewModel;
 

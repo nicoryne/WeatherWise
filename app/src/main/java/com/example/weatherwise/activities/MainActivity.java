@@ -4,18 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.example.weatherwise.MainViewModel;
 import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.ActivityMainBinding;
-import com.example.weatherwise.fragments.BoardingFragment;
 import com.example.weatherwise.fragments.OnboardingFragmentSecond;
 import com.example.weatherwise.fragments.SplashScreenFragment;
+
+import java.util.HashSet;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
     private View root;
 
+    private NavController mainNavController;
+
+    private HashSet<Integer> bottomNavigationScreens;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,30 +39,46 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         root = binding.getRoot();
         setContentView(root);
+
+        setupBottomNavigationSet();
+        setupMainNavigationController();
     }
+
+    private void setupBottomNavigationSet() {
+        bottomNavigationScreens = new HashSet<>();
+
+
+    }
+
+    private void setupMainNavigationController() {
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+        mainNavController = Objects.requireNonNull(navHostFragment).getNavController();
+
+        // Adding destination changed listener for bottom navigation bar
+        mainNavController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+            if(bottomNavigationScreens.contains(navDestination.getId())) {
+                showBottomNavBar();
+            } else {
+                hideBottomNavBar();
+            }
+        });
+    }
+
 
     private void handleBottomNav() {
-//        binding.containerBottomNav.setOnItemSelectedListener(item -> {
-//            switch(item.getItemId()) {
-//                case R.id.home:
-//                    replaceFragment(new BoardingFragment());
-//                    break;
-//                case R.id.health:
-//                    replaceFragment(new SplashScreenFragment());
-//                    break;
-//                case R.id.games:
-//                    replaceFragment(new OnboardingFragmentSecond());
-//                    break;
-//            }
-//            return true;
-//        });
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-        fragmentTransaction.commit();
+        binding.containerBottomNav.setOnItemSelectedListener(item -> {
+            switch(item.getItemId()) {
+                case R.id.home:
+                    break;
+                case R.id.health:
+                    break;
+                case R.id.games:
+                    break;
+                case R.id.profile:
+                    break;
+            }
+            return true;
+        });
     }
 
     public void showBottomNavBar() {

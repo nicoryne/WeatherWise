@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.weatherwise.databinding.FragmentHomeBinding;
 import com.example.weatherwise.databinding.FragmentTemplateBinding;
 
-public class TemplateFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     private final String DEBUG_TAG = "TemplateFragment";
 
-    private FragmentTemplateBinding binding;
+    private FragmentHomeBinding binding;
 
     private View root;
 
@@ -28,7 +29,7 @@ public class TemplateFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentTemplateBinding.inflate(getLayoutInflater());
+        binding = FragmentHomeBinding.inflate(getLayoutInflater());
         root = binding.getRoot();
 
         return root;

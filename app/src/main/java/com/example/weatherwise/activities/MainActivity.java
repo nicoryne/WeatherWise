@@ -14,11 +14,10 @@ import android.view.View;
 
 import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.ActivityMainBinding;
-import com.example.weatherwise.fragments.OnboardingFragmentSecond;
-import com.example.weatherwise.fragments.SplashScreenFragment;
 
 import java.util.HashSet;
 import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupBottomNavigationSet() {
         bottomNavigationScreens = new HashSet<>();
 
-
+        bottomNavigationScreens.add(R.id.homeFragment);
     }
 
     private void setupMainNavigationController() {

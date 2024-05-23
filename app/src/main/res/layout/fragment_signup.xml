@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.SignUpFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="50dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:src="@drawable/arrow_left" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/be_vietnam_bold"
+                android:gravity="center"
+                android:text="Sign Up"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/inptName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_rectangle"
+                android:drawableStart="@drawable/user"
+                android:drawablePadding="16dp"
+                android:ems="10"
+                android:fontFamily="@font/be_vietnam"
+                android:hint="Enter your name"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F" />
+
+            <EditText
+                android:id="@+id/inptEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_rectangle"
+                android:drawableStart="@drawable/sms"
+                android:drawablePadding="16dp"
+                android:ems="10"
+                android:fontFamily="@font/be_vietnam"
+                android:hint="Enter your email"
+                android:inputType="textEmailAddress"
+                android:padding="12dp"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F" />
+
+            <EditText
+                android:id="@+id/inptPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_rectangle"
+                android:drawableStart="@drawable/lock"
+                android:drawablePadding="16dp"
+                android:ems="10"
+                android:fontFamily="@font/be_vietnam"
+                android:hint="Enter your password"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F" />
+
+            <EditText
+                android:id="@+id/inptVerifyPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_rectangle"
+                android:drawableStart="@drawable/lock"
+                android:drawablePadding="16dp"
+                android:ems="10"
+                android:fontFamily="@font/be_vietnam"
+                android:hint="Verify your password"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F" />
+
+            <EditText
+                android:id="@+id/inptAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:background="@drawable/rounded_rectangle"
+                android:drawableStart="@drawable/address"
+                android:drawablePadding="16dp"
+                android:ems="10"
+                android:fontFamily="@font/be_vietnam"
+                android:hint="Enter your address"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F" />
+
+            <CheckBox
+                android:id="@+id/cbTerms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:fontFamily="@font/be_vietnam"
+                android:text="I agree to the Terms of Service and Privacy Policy"
+                android:textColor="#938F8F"
+                android:textSize="12sp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_rectangle_fill"
+                android:fontFamily="@font/archivo_narrow"
+                android:text="Register"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAlreadyHaveAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/be_vietnam"
+                    android:gravity="end"
+                    android:text="Already have an account?" />
+
+                <TextView
+                    android:id="@+id/tvSignIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="Sign In"
+                    android:textColor="#407CE2" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

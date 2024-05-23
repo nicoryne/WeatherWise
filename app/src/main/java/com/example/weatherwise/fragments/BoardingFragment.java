@@ -35,6 +35,7 @@ public class BoardingFragment extends Fragment {
         binding = FragmentBoardingBinding.inflate(getLayoutInflater());
         root = binding.getRoot();
 
+        handleLoginButton();
         return root;
     }
 
@@ -42,5 +43,15 @@ public class BoardingFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void handleLoginButton() {
+        binding.btnLogin.setOnClickListener(v -> {
+            Navigation.findNavController(root).navigate(R.id.action_boardingFragment_to_signInFragment);
+        });
+
+        binding.btnSignUp.setOnClickListener(v -> {
+            Navigation.findNavController(root).navigate(R.id.action_boardingFragment_to_signUpFragment);
+        });
     }
 }

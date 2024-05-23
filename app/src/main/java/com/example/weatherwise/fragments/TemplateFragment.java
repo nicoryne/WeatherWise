@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.weatherwise.databinding.FragmentTemplateBinding;
 
-@SuppressLint("CustomSplashScreen")
 public class TemplateFragment extends Fragment {
 
     private final String DEBUG_TAG = "TemplateFragment";

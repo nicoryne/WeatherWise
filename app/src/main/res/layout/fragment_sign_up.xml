@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_width="351dp"
             android:layout_height="490dp"
-            android:layout_x="26dp"
+            android:layout_x="34dp"
             android:layout_y="202dp"
             android:orientation="vertical">
 
@@ -60,9 +60,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_shape">
+                android:background="@drawable/rounded_shape"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/txtPassword"
@@ -71,10 +71,10 @@
                     android:layout_marginBottom="20dp"
                     android:layout_x="7dp"
                     android:layout_y="93dp"
+                    android:background="null"
                     android:drawableLeft="@drawable/lock"
                     android:drawablePadding="8dp"
                     android:ems="10"
-                    android:background="null"
                     android:fontFamily="@font/archivo_narrow"
                     android:hint="Enter your password"
                     android:inputType="textPassword" />
@@ -87,35 +87,38 @@
                     android:background="null"
                     android:src="@drawable/eye_slash" />
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_shape">
 
-            <EditText
-                android:id="@+id/txtVerify"
-                android:layout_width="310dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginBottom="20dp"
-                android:background="null"
-                android:layout_x="7dp"
-                android:layout_y="93dp"
-                android:drawableLeft="@drawable/lock"
-                android:drawablePadding="8dp"
-                android:ems="10"
-                android:fontFamily="@font/archivo_narrow"
-                android:hint="Verify your password"
-                android:inputType="textPassword" />
-            <ImageButton
-                android:id="@+id/btnHide1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="null"
-                android:src="@drawable/eye_slash" />
-        </LinearLayout>
+                android:background="@drawable/rounded_shape"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtVerify"
+                    android:layout_width="310dp"
+                    android:layout_height="46dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_x="7dp"
+                    android:layout_y="93dp"
+                    android:background="null"
+                    android:drawableLeft="@drawable/lock"
+                    android:drawablePadding="8dp"
+                    android:ems="10"
+                    android:fontFamily="@font/archivo_narrow"
+                    android:hint="Verify your password"
+                    android:inputType="textPassword" />
+
+                <ImageButton
+                    android:id="@+id/btnHide2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="null"
+                    android:src="@drawable/eye_slash" />
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/txtAddress"
                 android:layout_width="match_parent"
@@ -162,6 +165,5 @@
             android:text="Sign Up"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="24sp" />
-
     </AbsoluteLayout>
 </FrameLayout>

@@ -57,14 +57,17 @@ public class MainActivity extends AppCompatActivity {
         mainNavController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             if(bottomNavigationScreens.contains(navDestination.getId())) {
                 showBottomNavBar();
+                showFloatingPhoneButton();
             } else {
                 hideBottomNavBar();
+                hideFloatingPhoneButton();
             }
         });
     }
 
 
     private void handleBottomNav() {
+        // TODO
         binding.containerBottomNav.setOnItemSelectedListener(item -> {
             switch(item.getItemId()) {
                 case R.id.home:
@@ -80,11 +83,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void showBottomNavBar() {
+    private void handleFloatingPhoneButton() {
+        // TODO
+    }
+
+    private void showBottomNavBar() {
         binding.containerBottomNav.setVisibility(View.VISIBLE);
     }
 
-    public void hideBottomNavBar() {
+    private void hideBottomNavBar() {
         binding.containerBottomNav.setVisibility(View.GONE);
     }
+
+    private void showFloatingPhoneButton() {
+        binding.btnFloatingPhone.setVisibility(View.VISIBLE);
+    }
+
+    private void hideFloatingPhoneButton() {
+        binding.btnFloatingPhone.setVisibility(View.GONE);
+    }
+
+
 }

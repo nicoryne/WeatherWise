@@ -6,23 +6,25 @@
         android:layout_height="wrap_content"
         android:title="@string/menu_home"
         android:id="@+id/home"
-        android:icon="@drawable/home"/>
+        android:icon="@drawable/selector_home"
+        android:iconTint="@color/salmon"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/menu_health"
         android:id="@+id/health"
-        android:icon="@drawable/health"/>
+        android:icon="@drawable/selector_health"
+        android:state_checked="false"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/menu_games"
         android:id="@+id/games"
-        android:icon="@drawable/game_controller"/>
+        android:icon="@drawable/selector_game"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/menu_profile"
         android:id="@+id/profile"
-        android:icon="@drawable/profile"/>
+        android:icon="@drawable/selector_profile"/>
 </menu>

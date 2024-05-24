@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.WeatherWise" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.WeatherWise" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/light_salmon</item>
         <item name="colorPrimaryVariant">@color/salmon</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/peach_yellow</item>
         <item name="colorSecondaryVariant">@color/peach_orange</item>
@@ -15,7 +15,7 @@
     </style>
 
     <style name="ThemeOverlay.WeatherWise.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
-        <item name="fullscreenTextColor">@color/light_blue_A400</item>
+        <item name="fullscreenBackgroundColor">@color/salmon</item>
+        <item name="fullscreenTextColor">@color/white</item>
     </style>
 </resources>

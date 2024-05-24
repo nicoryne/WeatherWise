@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:padding="8dp"
             android:src="@drawable/arrow_left" />
 
         <LinearLayout
@@ -28,7 +29,7 @@
                 android:id="@+id/tvSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="70dp"
                 android:fontFamily="@font/be_vietnam_bold"
                 android:gravity="center"
                 android:text="Sign In"
@@ -42,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/rounded_rectangle"
+                android:background="@drawable/rounded_rectangle_text_input"
                 android:drawableStart="@drawable/sms"
                 android:drawablePadding="16dp"
                 android:ems="10"
@@ -58,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="8dp"
-                android:background="@drawable/rounded_rectangle"
+                android:background="@drawable/rounded_rectangle_text_input"
                 android:drawableStart="@drawable/lock"
                 android:drawablePadding="16dp"
                 android:ems="10"
@@ -71,9 +72,9 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnLogin"
@@ -81,11 +82,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/rounded_rectangle_fill"
                 android:fontFamily="@font/archivo_narrow"
+                android:padding="12dp"
                 android:text="Login"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="32dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

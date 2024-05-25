@@ -46,14 +46,10 @@ public class OnboardingFragmentFirst extends Fragment {
     }
 
     private void handleNextButton() {
-        binding.btnNext.setOnClickListener(v -> {
-            Navigation.findNavController(root).navigate(R.id.action_onboardingFragmentFirst_to_onboardingFragmentSecond2);
-        });
+        binding.btnNext.setOnClickListener(v -> Navigation.findNavController(root).navigate(R.id.action_onboardingFragmentFirst_to_onboardingFragmentSecond2));
     }
 
     private void handleSkipButton() {
-        binding.btnSkip.setOnClickListener(v -> {
-            Navigation.findNavController(root).navigate(R.id.action_onboardingFragmentFirst_to_boardingFragment);
-        });
+        binding.btnSkip.setOnClickListener(v -> Navigation.findNavController(root).navigate(R.id.action_onboardingFragmentFirst_to_boardingFragment));
     }
 }

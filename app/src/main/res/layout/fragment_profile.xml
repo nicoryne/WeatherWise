@@ -5,4 +5,200 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_salmon"
-    tools:context=".fragments.ProfileFragment" />
+    tools:context=".fragments.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivUserProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/user_profile"
+                tools:srcCompat="@drawable/user_profile" />
+
+            <Button
+                android:id="@+id/btnEditImageProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circle"
+                android:contentDescription="@string/content_description"
+                app:backgroundTint="@color/peach_yellow"
+                app:cornerRadius="64dp"
+                app:icon="@drawable/edit_profile_vector"
+                app:iconTint="@color/salmon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/archivo_narrow"
+            android:text="Edit"
+            android:textColor="@color/salmon"
+            android:textStyle="bold"
+            app:cornerRadius="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/salmon"
+            app:strokeWidth="0dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rectangle_1709"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/be_vietnam"
+                android:gravity="center"
+                android:text="Name"
+                android:textColor="@color/black"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvJoinDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/be_vietnam"
+                android:gravity="center"
+                android:text="Joined on Jul 20, 2018"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/tvFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_rectangle_text_input"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Full Name"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F"
+                android:inputType="text"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                app:drawableStartCompat="@drawable/user_rectangle" />
+
+            <EditText
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_rectangle_text_input"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Email"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F"
+                android:inputType="textEmailAddress"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                app:drawableStartCompat="@drawable/email_rectangle" />
+
+            <EditText
+                android:id="@+id/tvLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_rectangle_text_input"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Location"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F"
+                android:inputType="text"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                app:drawableStartCompat="@drawable/user_rectangle" />
+
+            <EditText
+                android:id="@+id/tvGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_rectangle_text_input"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Gender"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F"
+                android:inputType="text"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                app:drawableStartCompat="@drawable/gender_rectangle" />
+
+            <EditText
+                android:id="@+id/tvBirthdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_rectangle_text_input"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Birthdate"
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F"
+                android:inputType="text|date"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                app:drawableStartCompat="@drawable/birthday_rectangle" />
+
+            <Button
+                android:id="@+id/tvLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/archivo_narrow"
+                android:padding="12dp"
+                android:text="Logout"
+                android:textColor="@color/salmon"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="32dp"
+                app:strokeColor="@color/salmon"
+                app:strokeWidth="1dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

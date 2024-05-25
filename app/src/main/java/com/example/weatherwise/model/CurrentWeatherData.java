@@ -1,4 +1,4 @@
-package com.example.weatherwise.data;
+package com.example.weatherwise.model;
 
 import com.google.gson.annotations.SerializedName;
 

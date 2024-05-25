@@ -44,8 +44,6 @@ public class OnboardingFragmentSecond extends Fragment {
     }
 
     private void handleNextButton() {
-        binding.btnNext.setOnClickListener(v -> {
-            Navigation.findNavController(root).navigate(R.id.action_onboardingFragmentSecond2_to_boardingFragment);
-        });
+        binding.btnNext.setOnClickListener(v -> Navigation.findNavController(root).navigate(R.id.action_onboardingFragmentSecond2_to_boardingFragment));
     }
 }

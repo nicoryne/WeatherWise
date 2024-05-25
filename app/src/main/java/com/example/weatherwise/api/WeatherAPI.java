@@ -1,12 +1,12 @@
-package com.example.weatherwise.util;
+package com.example.weatherwise.api;
 
-import com.example.weatherwise.data.CurrentWeatherData;
+import com.example.weatherwise.model.CurrentWeatherData;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface RetrofitModel {
+public interface WeatherAPI {
 
     @GET("/v1/forecast")
     Call<CurrentWeatherData> getData(@Query("latitude") double latitude,

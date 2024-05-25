@@ -20,8 +20,6 @@ public class WeatherManager {
 
     private WeatherAPI weatherAPI;
 
-    private CurrentWeatherData currentWeatherData;
-
     public WeatherManager() {
         this.weatherRetrofit = new WeatherRetrofit();
         weatherRetrofit.build();

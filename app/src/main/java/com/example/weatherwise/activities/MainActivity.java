@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.weatherwise.R;
+import com.example.weatherwise.api.DataCallback;
+import com.example.weatherwise.api.WeatherManager;
+import com.example.weatherwise.api.WeatherRetrofit;
 import com.example.weatherwise.databinding.ActivityMainBinding;
 import com.example.weatherwise.model.CurrentWeatherData;
 import com.example.weatherwise.viewmodels.HomeViewModel;
@@ -43,11 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
     private HomeViewModel homeViewModel;
 
-    private WeatherAPI weatherAPI;
+    private WeatherManager weatherManager;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
-    private CurrentWeatherData currentWeatherData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,51 +58,28 @@ public class MainActivity extends AppCompatActivity {
         root = binding.getRoot();
         setContentView(root);
 
+        setup();
+    }
+
+    private void setup() {
         setupBottomNavigationSet();
         setupMainNavigationController();
         handleViewModel();
         handleBottomNav();
-        setupRetroFit();
-        getWeatherData();
+        weatherManager = new WeatherManager();
+        fetchWeather(10.2945, 123.8811, "temperature_2m,is_day");
     }
 
-    private void handleViewModel() {
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-    }
-
-    private void setupRetroFit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.open-meteo.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        weatherAPI = retrofit.create(WeatherAPI.class);
-    }
-
-    private void getWeatherData() {
-        weatherAPI.getData(10.2945, 123.8811, "temperature_2m,is_day").enqueue(new Callback<CurrentWeatherData>() {
-            @SuppressLint("SetTextI18n")
+    public void fetchWeather(double latitude, double longitude, String extension) {
+        weatherManager.getCurrentWeatherData(latitude, longitude, extension, new DataCallback<CurrentWeatherData>() {
             @Override
-            public void onResponse(@NonNull Call<CurrentWeatherData> call, @NonNull Response<CurrentWeatherData> response) {
-
-                if (response.isSuccessful() && response.body() == null) {
-                    Log.e("API_ERROR", "Response not successful: " + response.message());
-                    return;
-                }
-
-                CurrentWeatherData data = response.body();
-
-                if (Objects.requireNonNull(data).getCurrentWeather() == null) {
-                    Log.e("API_ERROR", "Current weather data is null");
-                    return;
-                }
-
+            public void onSuccess(CurrentWeatherData data) {
                 homeViewModel.setCurrentWeatherDataMutableLiveData(new MutableLiveData<>(data));
             }
 
             @Override
-            public void onFailure(@NonNull Call<CurrentWeatherData> call, @NonNull Throwable t) {
-                Log.e("API_ERROR", "Failed to fetch data", t);
+            public void onFailure(Throwable t) {
+                Log.e(DEBUG_TAG, "Error fetching weather data", t);
             }
         });
     }
@@ -150,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleFloatingPhoneButton() {
         // TODO
+    }
+
+    private void handleViewModel() {
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     }
 
     private void showBottomNavBar() {

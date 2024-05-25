@@ -48,8 +48,6 @@ public class SplashScreenFragment extends Fragment {
     }
 
     private void startSplashScreen() {
-        new Handler().postDelayed(() -> {
-            Navigation.findNavController(root).navigate(R.id.action_splashScreenFragment_to_onboardingFragmentFirst);
-        }, SPLASH_SCREEN_DURATION);
+        new Handler().postDelayed(() -> Navigation.findNavController(root).navigate(R.id.action_splashScreenFragment_to_onboardingFragmentFirst), SPLASH_SCREEN_DURATION);
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,15 +49,11 @@ public class SignInFragment extends Fragment {
     }
 
     private void setBackButton() {
-        binding.btnBack.setOnClickListener(v -> {
-            Navigation.findNavController(root).popBackStack();
-        });
+        binding.btnBack.setOnClickListener(v -> Navigation.findNavController(root).popBackStack());
     }
 
     private void setSignUpClickable() {
-        binding.tvSignUp.setOnClickListener(v -> {
-            Navigation.findNavController(root).navigate(R.id.action_signInFragment_to_signUpFragment);
-        });
+        binding.tvSignUp.setOnClickListener(v -> Navigation.findNavController(root).navigate(R.id.action_signInFragment_to_signUpFragment));
     }
 
     private void setLoginButton() {
@@ -70,41 +67,44 @@ public class SignInFragment extends Fragment {
 
             String email = binding.inptEmail.getText().toString();
             String password = binding.inptPassword.getText().toString();
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if(task.isCanceled()) {
-                            Toast.makeText(getContext(), "Login cancelled!", Toast.LENGTH_SHORT).show();
-                        }
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if(task.isCanceled()) {
+                    Toast.makeText(getContext(), "Login cancelled!", Toast.LENGTH_SHORT).show();
+                }
 
-                        if(!task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Login failed!", Toast.LENGTH_SHORT).show();
-                        }
+                if(!task.isSuccessful()) {
+                    Toast.makeText(getContext(), "Login failed!", Toast.LENGTH_SHORT).show();
+                }
 
-                        binding.progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Login successful!", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(root).navigate(R.id.action_signInFragment_to_homeFragment);
-                    });
-
+                binding.progressBar.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Login successful!", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(root).navigate(R.id.action_signInFragment_to_homeFragment);
+            });
         });
     }
 
     private boolean verifyInputs() {
-        if(binding.inptEmail.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "You failed to input an email!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if(binding.inptPassword.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "You failed to input a password!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        if (isFieldEmpty(binding.inptEmail, "You failed to input a name!")) return false;
+        if (isFieldEmpty(binding.inptPassword, "You failed to input an email!")) return false;
 
         if (binding.inptPassword.getText().toString().length() < 6) {
-            Toast.makeText(getContext(), "Password should be at least 6 characters!", Toast.LENGTH_SHORT).show();
+            showToast("Password should be at least 6 characters!");
             return false;
         }
 
         return true;
+    }
+
+    private boolean isFieldEmpty(EditText field, String errorMessage) {
+        if (field.getText().toString().isEmpty()) {
+            showToast(errorMessage);
+            return true;
+        }
+        return false;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }

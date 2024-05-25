@@ -2,6 +2,6 @@ package com.example.weatherwise.api;
 
 public interface DataCallback<T> {
 
-    void onSuccess(T data);
-    void onFailure(Throwable t);
+    void onCallback(T data);
+    void onError(Throwable t);
 }

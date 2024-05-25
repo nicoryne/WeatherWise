@@ -10,8 +10,6 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<CurrentWeatherData> currentWeatherDataMutableLiveData;
 
-
-
     public LiveData<CurrentWeatherData> getCurrentWeatherLiveData() {
         return currentWeatherDataMutableLiveData;
     }

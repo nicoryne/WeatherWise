@@ -73,12 +73,12 @@ public class MainActivity extends AppCompatActivity {
     public void fetchWeather(double latitude, double longitude, String extension) {
         weatherManager.getCurrentWeatherData(latitude, longitude, extension, new DataCallback<CurrentWeatherData>() {
             @Override
-            public void onSuccess(CurrentWeatherData data) {
+            public void onCallback(CurrentWeatherData data) {
                 homeViewModel.setCurrentWeatherDataMutableLiveData(new MutableLiveData<>(data));
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onError(Throwable t) {
                 Log.e(DEBUG_TAG, "Error fetching weather data", t);
             }
         });

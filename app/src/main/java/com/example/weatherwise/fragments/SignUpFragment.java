@@ -12,12 +12,15 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.weatherwise.R;
+import com.example.weatherwise.api.DataCallback;
 import com.example.weatherwise.databinding.FragmentSignupBinding;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,7 +67,6 @@ public class SignUpFragment extends Fragment {
     private void setSignUpButton() {
         binding.btnRegister.setOnClickListener(v -> {
             binding.progressBar.setVisibility(View.VISIBLE);
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
             if (!verifyInputs()) {
                 binding.progressBar.setVisibility(View.GONE);
@@ -74,23 +76,7 @@ public class SignUpFragment extends Fragment {
             String email = binding.inptEmail.getText().toString().trim();
             String password = binding.inptPassword.getText().toString().trim();
 
-
-            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                if(task.isCanceled()) {
-                    showToast("Registration cancelled!");
-                }
-
-                if(!task.isSuccessful()) {
-                    showToast("Registration failed!");
-                }
-
-                String uuid = firebaseAuth.getUid();
-
-                addNewUserToCollection(uuid, email);
-                binding.progressBar.setVisibility(View.GONE);
-
-                Navigation.findNavController(root).navigate(R.id.action_signUpFragment_to_signInFragment);
-            });
+            registerUser(email, password);
         });
     }
 
@@ -99,15 +85,53 @@ public class SignUpFragment extends Fragment {
         String name = binding.inptName.getText().toString().trim();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DocumentReference documentReference =  firestore.collection("users").document(uuid);
-
+        ZonedDateTime currentDate = ZonedDateTime.now(ZoneId.of("GMT+8"));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
         Map<String, Object> newUser = new HashMap<>();
         newUser.put("name", name);
         newUser.put("email", email);
         newUser.put("address", address);
         newUser.put("gender", null);
         newUser.put("birthdate", null);
+        newUser.put("createdAt", currentDate.format(dateTimeFormatter));
 
         documentReference.set(newUser).addOnSuccessListener(v -> showToast("Registration successful!"));
+    }
+
+    private void registerUser(String email, String password) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("users").whereEqualTo("email", email).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                boolean userExists = !task.getResult().isEmpty();
+
+                if(userExists) {
+                    showToast("User already exists!");
+                    return;
+                }
+
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(createTask -> {
+                    if (createTask.isCanceled()) {
+                        binding.progressBar.setVisibility(View.GONE);
+                        showToast("Registration cancelled!");
+                        return;
+                    }
+
+                    if (!createTask.isSuccessful()) {
+                        binding.progressBar.setVisibility(View.GONE);
+                        showToast("Registration failed!");
+                        return;
+                    }
+
+                    String uuid = firebaseAuth.getUid();
+
+                    addNewUserToCollection(uuid, email);
+                    binding.progressBar.setVisibility(View.GONE);
+
+                    Navigation.findNavController(root).navigate(R.id.action_signUpFragment_to_signInFragment);
+                });
+            }
+        });
     }
 
     private boolean verifyInputs() {

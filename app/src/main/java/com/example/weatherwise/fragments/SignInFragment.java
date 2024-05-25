@@ -9,12 +9,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.FragmentSigninBinding;
 import com.example.weatherwise.databinding.FragmentTemplateBinding;
+import com.example.weatherwise.model.User;
+import com.example.weatherwise.viewmodels.ProfileViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Map;
+import java.util.Objects;
 
 public class SignInFragment extends Fragment {
 
@@ -69,15 +80,25 @@ public class SignInFragment extends Fragment {
             String password = binding.inptPassword.getText().toString();
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if(task.isCanceled()) {
-                    Toast.makeText(getContext(), "Login cancelled!", Toast.LENGTH_SHORT).show();
-                }
-
-                if(!task.isSuccessful()) {
-                    Toast.makeText(getContext(), "Login failed!", Toast.LENGTH_SHORT).show();
+                    showToast("Login failed!");
                 }
 
                 binding.progressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Login successful!", Toast.LENGTH_SHORT).show();
+                showToast("Login successful!");
+
+                //  Handle data
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                DocumentReference documentReference =  firestore.collection("users").document(Objects.requireNonNull(firebaseAuth.getUid()));
+                documentReference.get().addOnSuccessListener(documentSnapshot -> {
+                    if(task.isCanceled()) {
+                        showToast("Login failed!");
+                    }
+
+                    User user = documentSnapshot.toObject(User.class);
+                    ProfileViewModel profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+                    profileViewModel.setUserMutableLiveData(new MutableLiveData<>(user));
+                });
+
                 Navigation.findNavController(root).navigate(R.id.action_signInFragment_to_homeFragment);
             });
         });

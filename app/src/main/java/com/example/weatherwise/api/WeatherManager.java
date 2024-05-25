@@ -42,7 +42,7 @@ public class WeatherManager {
                     return;
                 }
 
-                weatherCallback.onSuccess(data);
+                weatherCallback.onCallback(data);
             }
 
             @Override

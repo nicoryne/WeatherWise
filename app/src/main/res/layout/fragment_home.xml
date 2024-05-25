@@ -93,11 +93,10 @@
             android:layout_gravity="bottom"
             android:background="@color/white">
 
-            <TextView
-                android:id="@+id/textView"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNotifications"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="wrap_content" />
         </ScrollView>
     </LinearLayout>
 

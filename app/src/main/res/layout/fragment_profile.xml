@@ -48,7 +48,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFA07A"
+            android:text="Cancel"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -101,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/rounded_rectangle_text_input"
+                android:background="@drawable/rounded_rectangle_text_input_noedit"
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:drawablePadding="16dp"
@@ -120,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/rounded_rectangle_text_input"
+                android:background="@drawable/rounded_rectangle_text_input_noedit"
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
                 android:hint="Email"
@@ -139,26 +154,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/rounded_rectangle_text_input"
+                android:background="@drawable/rounded_rectangle_text_input_noedit"
+                android:clickable="false"
+                android:cursorVisible="false"
                 android:drawablePadding="16dp"
+                android:focusable="false"
                 android:gravity="center_vertical"
                 android:hint="Location"
-                android:textColor="#938F8F"
-                android:textColorHint="#938F8F"
                 android:inputType="text"
                 android:paddingStart="2dp"
                 android:paddingEnd="16dp"
-                android:focusable="false"
-                android:clickable="false"
-                android:cursorVisible="false"
-                app:drawableStartCompat="@drawable/user_rectangle" />
+                android:textColor="#938F8F"
+                android:textColorHint="#938F8F"
+                app:drawableStartCompat="@drawable/home_rectangle" />
 
             <EditText
                 android:id="@+id/tvGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/rounded_rectangle_text_input"
+                android:background="@drawable/rounded_rectangle_text_input_noedit"
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
                 android:hint="Gender"
@@ -177,7 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/rounded_rectangle_text_input"
+                android:background="@drawable/rounded_rectangle_text_input_noedit"
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
                 android:hint="Birthdate"
@@ -206,6 +221,21 @@
                 app:cornerRadius="32dp"
                 app:strokeColor="@color/salmon"
                 app:strokeWidth="1dp" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/salmon"
+                android:fontFamily="@font/archivo_narrow"
+                android:padding="12dp"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:cornerRadius="32dp" />
 
         </LinearLayout>
 

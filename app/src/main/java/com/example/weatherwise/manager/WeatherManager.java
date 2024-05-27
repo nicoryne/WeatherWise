@@ -1,9 +1,12 @@
-package com.example.weatherwise.api;
+package com.example.weatherwise.manager;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.weatherwise.api.DataCallback;
+import com.example.weatherwise.api.WeatherAPI;
+import com.example.weatherwise.api.WeatherRetrofit;
 import com.example.weatherwise.model.CurrentWeatherData;
 
 import java.util.Objects;

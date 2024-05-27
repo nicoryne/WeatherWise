@@ -2,6 +2,7 @@ package com.example.weatherwise.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -29,11 +30,17 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
 
     private int totalSteps = 0;
 
-    private int previousTotalSteps = 0;  // Initialize this to zero and manage persistence if needed
+    private int previousTotalSteps = 0;
+
+    private int currentSteps = 0;
+
+    private static final String PREFS_NAME = "fitnessPrefs";
+    private static final String STEPS_KEY = "previousTotalSteps";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadPreviousTotalSteps();
     }
 
     @Override
@@ -63,6 +70,7 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
     @Override
     public void onPause() {
         super.onPause();
+        savePreviousTotalSteps();
         sensorManager.unregisterListener(this);
     }
 
@@ -72,6 +80,7 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
             stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         }
 
+        binding.pbSteps.setProgress(0);
         setFitnessBubble();
     }
 
@@ -81,22 +90,34 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
         binding.tvDailyGoal.setText("/ 800");
         binding.tvSteps.setText("0");
         binding.tvStreak.setText("3");
-        binding.pbSteps.setMax(800);
+        binding.pbSteps.setMax(800); // Set the maximum value for the progress bar
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
             totalSteps = (int) event.values[0];
-            int currentSteps = totalSteps - previousTotalSteps;
+            currentSteps = totalSteps - previousTotalSteps;
             binding.tvSteps.setText(String.valueOf(currentSteps));
-            binding.pbSteps.setProgress(currentSteps);
+            binding.pbSteps.setProgress(0);
         }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Handle accuracy changes here
+
+    }
+
+    private void loadPreviousTotalSteps() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        previousTotalSteps = sharedPreferences.getInt(STEPS_KEY, 0);
+    }
+
+    private void savePreviousTotalSteps() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(STEPS_KEY, previousTotalSteps);
+        editor.apply();
     }
 
     private void showToast(String message) {

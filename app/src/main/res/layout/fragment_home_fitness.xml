@@ -21,16 +21,19 @@
             android:background="@drawable/circle"
             android:backgroundTint="@color/salmon">
 
-            <ProgressBar
+            <android.widget.ProgressBar
                 android:id="@+id/pbSteps"
-                style="@style/Widget.AppCompat.ProgressBar"
                 android:layout_width="350dp"
                 android:layout_height="350dp"
+                android:indeterminate="false"
                 android:indeterminateDrawable="@drawable/circular_progress_bar"
+                android:indeterminateOnly="false"
+                android:max="800"
                 android:maxWidth="48dp"
                 android:maxHeight="48dp"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
+                android:progress="0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.509"

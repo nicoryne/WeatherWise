@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.weatherwise.R;
+import com.example.weatherwise.adapter.HomeAdapter;
 import com.example.weatherwise.model.CurrentWeatherData;
 import com.example.weatherwise.databinding.FragmentHomeBinding;
 import com.example.weatherwise.viewmodels.HomeViewModel;
@@ -19,6 +20,7 @@ import com.example.weatherwise.viewmodels.HomeViewModel;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -28,13 +30,14 @@ public class HomeFragment extends Fragment {
 
     private View root;
 
-    private CurrentWeatherData currentWeatherData;
+    private ArrayList<Fragment> fragments;
+
+    private HomeAdapter homeAdapter;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -43,55 +46,20 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
         root = binding.getRoot();
 
-        HomeViewModel model = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        model.getCurrentWeatherLiveData().observe(getViewLifecycleOwner(), this::setWeatherBubble);
+        fragments = new ArrayList<>();
+        fragments.add(new HomeTemperatureFragment());
+        fragments.add(new HomeFitnessFragment());
+
+        homeAdapter = new HomeAdapter(requireActivity(), fragments);
+        binding.pagerStatus.setAdapter(homeAdapter);
         return root;
     }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    private void setWeatherBubble(CurrentWeatherData currentWeatherData) {
-        setTemperature(currentWeatherData);
-        setDayTimeIcon(currentWeatherData);
-        setDate();
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setTemperature(CurrentWeatherData currentWeatherData) {
-        binding.tvTemp.setText((int) Math.ceil(currentWeatherData.getCurrentWeather().getTemperature()) + "°");
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setDayTimeIcon(CurrentWeatherData currentWeatherData) {
-        if (currentWeatherData.getCurrentWeather().getIsDay() == 0) {
-            binding.tvCondition.setCompoundDrawablesWithIntrinsicBounds(ResourcesCompat.getDrawable(getResources(), R.drawable.night, null), null, null, null);
-            binding.tvCondition.setText("Night");
-        } else {
-            binding.tvCondition.setCompoundDrawablesWithIntrinsicBounds(ResourcesCompat.getDrawable(getResources(), R.drawable.sun, null), null, null, null);
-            binding.tvCondition.setText("Day");
-        }
-        binding.tvCondition.setCompoundDrawablePadding(16);
-    }
-
-    private void setDate() {
-        ZonedDateTime currentDate = ZonedDateTime.now(ZoneId.of("GMT+8"));
-
-        DateTimeFormatter dayOfWeekFormatter = DateTimeFormatter.ofPattern("E");
-        String formattedDayOfWeek = currentDate.format(dayOfWeekFormatter).toUpperCase();
-
-        int dayOfMonth = currentDate.getDayOfMonth();
-
-        String formattedDate = formattedDayOfWeek + " " + dayOfMonth;
-
-        DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MMM yyyy");
-        String formattedMonthYear = currentDate.format(monthYearFormatter).toUpperCase();
-
-        binding.tvDay.setText(formattedDate);
-        binding.tvMonth.setText(formattedMonthYear);
     }
 
 }

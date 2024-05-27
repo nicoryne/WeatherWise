@@ -47,6 +47,7 @@
             android:fontFamily="@font/be_vietnam_bold"
             android:text="@string/text_boarding_1"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="#737373"
             android:textSize="24sp" />
 
         <LinearLayout

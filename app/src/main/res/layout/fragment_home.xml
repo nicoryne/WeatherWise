@@ -24,11 +24,30 @@
             android:layout_gravity="bottom"
             android:background="@color/white">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNotifications"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tvRecentNotifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="24dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="Recent Notifications"
+                    android:textColor="#1B1A1A"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNotifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </ScrollView>
+
     </LinearLayout>
 
 </FrameLayout>

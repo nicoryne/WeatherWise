@@ -80,14 +80,14 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
             stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         }
 
-        binding.pbSteps.setProgress(0);
+        binding.pbSteps.setProgress(currentSteps);
         setFitnessBubble();
     }
 
     @SuppressLint("SetTextI18n")
     private void setFitnessBubble() {
-        binding.tvDistance.setText("3 km");
-        binding.tvDailyGoal.setText("/ 800");
+        binding.tvDistance.setText("Steps");
+        binding.tvDailyGoal.setText("3 km");
         binding.tvSteps.setText("0");
         binding.tvStreak.setText("3");
         binding.pbSteps.setMax(800); // Set the maximum value for the progress bar
@@ -99,7 +99,7 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
             totalSteps = (int) event.values[0];
             currentSteps = totalSteps - previousTotalSteps;
             binding.tvSteps.setText(String.valueOf(currentSteps));
-            binding.pbSteps.setProgress(0);
+            binding.pbSteps.setProgress(currentSteps);
         }
     }
 

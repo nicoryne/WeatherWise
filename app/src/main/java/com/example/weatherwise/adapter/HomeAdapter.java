@@ -9,21 +9,21 @@ import java.util.List;
 
 public class HomeAdapter extends FragmentStateAdapter {
 
-    private final List<Fragment> fragmentList;
+    private final List<Fragment> fragments;
 
-    public HomeAdapter(@NonNull FragmentActivity fragmentActivity, List<Fragment> fragmentList) {
+    public HomeAdapter(@NonNull FragmentActivity fragmentActivity, List<Fragment> fragments) {
         super(fragmentActivity);
-        this.fragmentList = fragmentList;
+        this.fragments = fragments;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return fragmentList.get(position);
+        return fragments.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return fragmentList.size();
+        return fragments.size();
     }
 }

@@ -133,7 +133,10 @@ public class HealthFragment extends Fragment implements LocationManager.Location
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
-                return address.getAddressLine(0); // Get the full address
+                String placeName = address.getFeatureName();
+                if (placeName != null) {
+                    return placeName;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

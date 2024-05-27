@@ -1,25 +1,21 @@
 package com.example.weatherwise.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.weatherwise.R;
 import com.example.weatherwise.adapter.HomeAdapter;
-import com.example.weatherwise.model.CurrentWeatherData;
+import com.example.weatherwise.adapter.NotificationAdapter;
 import com.example.weatherwise.databinding.FragmentHomeBinding;
-import com.example.weatherwise.viewmodels.HomeViewModel;
+import com.example.weatherwise.model.Notification;
+import com.google.type.DateTime;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
@@ -27,39 +23,38 @@ public class HomeFragment extends Fragment {
     private final String DEBUG_TAG = "HomeFragment";
 
     private FragmentHomeBinding binding;
-
-    private View root;
-
     private ArrayList<Fragment> fragments;
-
+    private ArrayList<Notification> notifications;
     private HomeAdapter homeAdapter;
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private NotificationAdapter notificationAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(getLayoutInflater());
-        root = binding.getRoot();
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         fragments = new ArrayList<>();
         fragments.add(new HomeTemperatureFragment());
         fragments.add(new HomeFitnessFragment());
 
-        homeAdapter = new HomeAdapter(requireActivity(), fragments);
-        binding.pagerStatus.setAdapter(homeAdapter);
-        return root;
-    }
+        notifications = new ArrayList<>();
+        DateTime dateTime = DateTime.newBuilder().setSeconds((int) System.currentTimeMillis() / 1000).build();
+        notifications.add(new Notification("Rehydrate yourself", "Every 2 hours", R.drawable.water, dateTime));
+        notifications.add(new Notification("Rehydrate yourself", "Every 2 hours", R.drawable.water, dateTime));
+        notifications.add(new Notification("Rehydrate yourself", "Every 2 hours", R.drawable.water, dateTime));
 
+        homeAdapter = new HomeAdapter(requireActivity(), fragments);
+        notificationAdapter = new NotificationAdapter(requireContext(), notifications);
+
+        binding.pagerStatus.setAdapter(homeAdapter);
+        binding.rvNotifications.setAdapter(notificationAdapter);
+        binding.rvNotifications.setLayoutManager(new LinearLayoutManager(requireContext()));
+        return binding.getRoot();
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
 }

@@ -29,11 +29,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/textView"
+            <Button
+                android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Test" />
+                android:text="Button" />
+
+            <TextView
+                android:id="@+id/tvMeters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3 Meters" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

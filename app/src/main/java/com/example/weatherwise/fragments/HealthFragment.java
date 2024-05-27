@@ -86,7 +86,6 @@ public class HealthFragment extends Fragment implements LocationManager.Location
                     updateSelectedLocationMarker();
                 });
 
-                // Update the map with the current location if available
                 Location currentLocation = LocationManager.getInstance().getCurrentLocation();
                 if (currentLocation != null) {
                     updateMapWithLocation(currentLocation);

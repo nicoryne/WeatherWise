@@ -1,5 +1,12 @@
 [
   {
+    "stylers": [
+      {
+        "color": "#523735"
+      }
+    ]
+  },
+  {
     "elementType": "geometry",
     "stylers": [
       {
@@ -20,15 +27,6 @@
     "stylers": [
       {
         "color": "#f5f1e6"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "visibility": "off"
       }
     ]
   },
@@ -70,18 +68,19 @@
   },
   {
     "featureType": "poi",
+    "elementType": "geometry",
     "stylers": [
       {
-        "visibility": "off"
+        "color": "#dfd2ae"
       }
     ]
   },
   {
     "featureType": "poi",
-    "elementType": "geometry",
+    "elementType": "labels.text",
     "stylers": [
       {
-        "color": "#dfd2ae"
+        "visibility": "off"
       }
     ]
   },
@@ -95,11 +94,51 @@
     ]
   },
   {
-    "featureType": "poi.medical",
-    "elementType": "labels.icon",
+    "featureType": "poi.business",
     "stylers": [
       {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.medical",
+    "stylers": [
+      {
+        "color": "#fab28b"
+      },
+      {
+        "saturation": 5
+      },
+      {
         "visibility": "on"
+      },
+      {
+        "weight": 1
+      }
+    ]
+  },
+  {
+    "featureType": "poi.medical",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "color": "#000000"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.medical",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#ffffff"
+      },
+      {
+        "saturation": -80
+      },
+      {
+        "weight": 1
       }
     ]
   },

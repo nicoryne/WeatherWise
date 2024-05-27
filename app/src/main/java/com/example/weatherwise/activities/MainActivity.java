@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         bottomNavigationScreens = new HashSet<>();
         bottomNavigationScreens.add(R.id.homeFragment);
         bottomNavigationScreens.add(R.id.profileFragment);
+        bottomNavigationScreens.add(R.id.healthFragment);
     }
 
     private void setupMainNavigationController() {

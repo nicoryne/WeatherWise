@@ -111,4 +111,9 @@
         android:name="com.example.weatherwise.fragments.HealthFragment"
         android:label="fragment_health"
         tools:layout="@layout/fragment_health" />
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.weatherwise.fragments.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game" />
 </navigation>

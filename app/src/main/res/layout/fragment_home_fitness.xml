@@ -42,7 +42,7 @@
                 app:layout_constraintVertical_bias="0.509" />
 
             <TextView
-                android:id="@+id/tvDistance"
+                android:id="@+id/tvActivity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="16dp"
@@ -52,7 +52,7 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvSteps"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.558"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView

@@ -94,9 +94,11 @@ public class SignInFragment extends Fragment {
                         showToast("Login failed!");
                     }
 
-                    User user = documentSnapshot.toObject(User.class);
-                    ProfileViewModel profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
-                    profileViewModel.setUserMutableLiveData(new MutableLiveData<>(user));
+                    if(task.isSuccessful()) {
+                        User user = documentSnapshot.toObject(User.class);
+                        ProfileViewModel profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+                        profileViewModel.setUserMutableLiveData(new MutableLiveData<>(user));
+                    }
                 });
 
                 Navigation.findNavController(root).navigate(R.id.action_signInFragment_to_homeFragment);

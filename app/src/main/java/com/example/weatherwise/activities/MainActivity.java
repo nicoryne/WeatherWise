@@ -4,13 +4,19 @@ import static com.example.weatherwise.manager.LocationManager.LOCATION_PERMISSIO
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     private WeatherManager weatherManager;
     private LocationManager locationManager;
 
+    private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,14 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
                 showToast("Location permission denied");
             }
         }
+
+        if (requestCode == REQUEST_CALL_PHONE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            } else {
+                showToast("Call permission denied");
+            }
+        }
     }
 
     private void setup() {
@@ -66,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         setupMainNavigationController();
         handleViewModel();
         handleBottomNav();
+        handleFloatingPhoneButton();
         weatherManager = new WeatherManager();
         locationManager = LocationManager.getInstance();
         locationManager.initialize(this);
@@ -104,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         bottomNavigationScreens.add(R.id.homeFragment);
         bottomNavigationScreens.add(R.id.profileFragment);
         bottomNavigationScreens.add(R.id.healthFragment);
+        bottomNavigationScreens.add(R.id.gameFragment);
     }
 
     private void setupMainNavigationController() {
@@ -121,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void handleBottomNav() {
         binding.containerBottomNav.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -131,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
                     mainNavController.navigate(R.id.healthFragment);
                     break;
                 case R.id.games:
+                    mainNavController.navigate(R.id.gameFragment);
                     break;
                 case R.id.profile:
                     mainNavController.navigate(R.id.profileFragment);
@@ -141,11 +161,28 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     }
 
     private void handleFloatingPhoneButton() {
-        // TODO
+        binding.btnFloatingPhone.setOnClickListener(v -> {
+            makePhoneCall();
+        });
     }
 
     private void handleViewModel() {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+    }
+
+    private void makePhoneCall() {
+        String phoneNumber = "tel:+639938948592";
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
+        } else {
+            startPhoneCall(phoneNumber);
+        }
+    }
+
+    private void startPhoneCall(String phoneNumber) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse(phoneNumber));
+        startActivity(callIntent);
     }
 
     private void showBottomNavBar() {

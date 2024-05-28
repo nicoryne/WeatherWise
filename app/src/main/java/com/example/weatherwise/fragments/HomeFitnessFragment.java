@@ -1,12 +1,15 @@
 package com.example.weatherwise.fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.weatherwise.databinding.FragmentHomeFitnessBinding;
@@ -28,7 +35,6 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
     private final String DEBUG_TAG = "HomeFitnessFragment";
 
     private FragmentHomeFitnessBinding binding;
-
     private SensorManager sensorManager;
     private Sensor stepSensor;
     private Sensor accelerometerSensor;
@@ -41,16 +47,32 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
     private static final String STEPS_KEY = "previousTotalSteps";
     private static final String DATE_KEY = "lastSavedDate";
 
+    private ActivityResultLauncher<String[]> requestPermissionLauncher;
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadPreviousTotalSteps();
         checkIfNewDay();
+
+        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+            Boolean activityRecognitionGranted = result.getOrDefault(Manifest.permission.ACTIVITY_RECOGNITION, false);
+            Boolean bodySensorsGranted = result.getOrDefault(Manifest.permission.BODY_SENSORS, false);
+
+            if (Boolean.TRUE.equals(activityRecognitionGranted) && Boolean.TRUE.equals(bodySensorsGranted)) {
+                showToast("Permissions granted");
+                setup();
+            } else {
+                showToast("Permissions denied");
+            }
+        });
+
+        checkPermissions();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeFitnessBinding.inflate(inflater, container, false);
         setup();
         return binding.getRoot();
@@ -99,6 +121,7 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
         binding.pbSteps.setMax(800); // Set the maximum value for the progress bar
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
@@ -160,5 +183,19 @@ public class HomeFitnessFragment extends Fragment implements SensorEventListener
 
     private void showToast(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void checkPermissions() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BODY_SENSORS) != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissionLauncher.launch(new String[]{
+                    Manifest.permission.ACTIVITY_RECOGNITION,
+                    Manifest.permission.BODY_SENSORS
+            });
+        } else {
+            setup();
+        }
     }
 }

@@ -8,7 +8,7 @@
 
 
     <LinearLayout
-        android:id="@+id/containerTemperature"
+        android:id="@+id/containerRain"
         android:layout_width="429dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -16,7 +16,7 @@
         android:padding="50dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutTemperature"
+            android:id="@+id/layoutRain"
             android:layout_width="295dp"
             android:layout_height="295dp"
             android:elevation="4dp">
@@ -26,20 +26,19 @@
                 android:id="@+id/tvCondition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
                 android:drawablePadding="16dp"
                 android:fontFamily="@font/archivo_narrow"
+                android:text="Humidity"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvTemp"
+                app:layout_constraintBottom_toTopOf="@+id/tvHumidity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvTemp"
+                android:id="@+id/tvHumidity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginBottom="80dp"
                 android:fontFamily="@font/be_vietnam_bold"
                 android:gravity="center|center_horizontal|center_vertical"
@@ -52,10 +51,10 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.864" />
+                app:layout_constraintVertical_bias="0.851" />
 
             <TextView
-                android:id="@+id/tvDay"
+                android:id="@+id/tvPrecipitation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/archivo_narrow"
@@ -64,10 +63,10 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTemp" />
+                app:layout_constraintTop_toBottomOf="@+id/tvHumidity" />
 
             <TextView
-                android:id="@+id/tvMonth"
+                android:id="@+id/tvWind"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/archivo_narrow"
@@ -76,7 +75,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDay" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPrecipitation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

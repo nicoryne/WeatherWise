@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     public void onLocationUpdated(Location location) {
         if (location != null) {
             Log.d(DEBUG_TAG, "Location updated: Latitude: " + location.getLatitude() + ", Longitude: " + location.getLongitude());
-            fetchWeather(location.getLatitude(), location.getLongitude(), "temperature_2m,is_day");
+            fetchWeather(location.getLatitude(), location.getLongitude(), "temperature_2m,relative_humidity_2m,is_day,precipitation,rain,wind_speed_10m");
         } else {
             Log.e(DEBUG_TAG, "Location is null");
         }

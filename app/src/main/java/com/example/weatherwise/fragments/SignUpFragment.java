@@ -105,6 +105,7 @@ public class SignUpFragment extends Fragment {
                 boolean userExists = !task.getResult().isEmpty();
 
                 if(userExists) {
+                    binding.progressBar.setVisibility(View.GONE);
                     showToast("User already exists!");
                     return;
                 }

@@ -17,4 +17,7 @@
     <color name="macaroni_and_cheese">#FAB28B</color>
     <color name="peach_orange">#FAD099</color>
     <color name="peach_yellow">#FADFB0</color>
+    <color name="night_bg">#200C3C</color>
+    <color name="sun_bg">#F4AC8F</color>
+    <color name="rain_bg">#8BA7AF</color>
 </resources>

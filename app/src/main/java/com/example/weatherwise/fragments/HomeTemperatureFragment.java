@@ -1,6 +1,7 @@
 package com.example.weatherwise.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.FragmentHomeTemperatureBinding;
-import com.example.weatherwise.databinding.FragmentTemplateBinding;
 import com.example.weatherwise.model.CurrentWeatherData;
 import com.example.weatherwise.viewmodels.HomeViewModel;
 
@@ -67,14 +67,22 @@ public class HomeTemperatureFragment extends Fragment {
         binding.tvTemp.setText((int) Math.ceil(currentWeatherData.getCurrentWeather().getTemperature()) + "°");
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     private void setDayTimeIcon(CurrentWeatherData currentWeatherData) {
         if (currentWeatherData.getCurrentWeather().getIsDay() == 0) {
             binding.tvCondition.setCompoundDrawablesWithIntrinsicBounds(ResourcesCompat.getDrawable(getResources(), R.drawable.night, null), null, null, null);
             binding.tvCondition.setText("Night");
+            binding.layoutTemperature.setBackgroundResource(R.drawable.circle_night);
+
+            int color = getResources().getColor(R.color.night_bg, requireContext().getTheme());
+            binding.containerTemperature.setBackgroundColor(color);
         } else {
             binding.tvCondition.setCompoundDrawablesWithIntrinsicBounds(ResourcesCompat.getDrawable(getResources(), R.drawable.sun, null), null, null, null);
             binding.tvCondition.setText("Day");
+            binding.layoutTemperature.setBackgroundResource(R.drawable.circle_day);
+
+            int color = getResources().getColor(R.color.sun_bg, requireContext().getTheme());
+            binding.containerTemperature.setBackgroundColor(color);
         }
         binding.tvCondition.setCompoundDrawablePadding(16);
     }

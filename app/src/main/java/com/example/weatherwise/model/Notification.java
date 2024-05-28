@@ -5,14 +5,11 @@ import com.google.type.DateTime;
 public class Notification {
 
     private String title;
-
     private String extraMessage;
-
     private int icon;
-
     private DateTime dateTimeCreated;
 
-    public Notification(String title, String extraMessage, int iconId, DateTime dateTimeCreated) {
+    public Notification(String title, String extraMessage, int icon, DateTime dateTimeCreated) {
         this.title = title;
         this.extraMessage = extraMessage;
         this.icon = icon;

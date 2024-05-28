@@ -79,29 +79,35 @@ public class SignInFragment extends Fragment {
             String email = binding.inptEmail.getText().toString();
             String password = binding.inptPassword.getText().toString();
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+               if(task.isSuccessful()) {
+                   binding.progressBar.setVisibility(View.GONE);
+                   showToast("Login successful!");
+
+                   //  Handle data
+                   FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                   DocumentReference documentReference =  firestore.collection("users").document(Objects.requireNonNull(firebaseAuth.getUid()));
+                   documentReference.get().addOnSuccessListener(documentSnapshot -> {
+                       if(task.isSuccessful()) {
+                           User user = documentSnapshot.toObject(User.class);
+                           ProfileViewModel profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+                           profileViewModel.setUserMutableLiveData(new MutableLiveData<>(user));
+                       }
+
+                       if(task.isCanceled() || !(task.isSuccessful())) {
+                           showToast("Error fetching user credentials!");
+                       }
+                   });
+
+                   Navigation.findNavController(root).navigate(R.id.action_signInFragment_to_homeFragment);
+               } else if (!task.isSuccessful()) {
+                   binding.progressBar.setVisibility(View.GONE);
+                   showToast("Incorrect login details!");
+               }
+
                 if(task.isCanceled()) {
+                    binding.progressBar.setVisibility(View.GONE);
                     showToast("Login failed!");
                 }
-
-                binding.progressBar.setVisibility(View.GONE);
-                showToast("Login successful!");
-
-                //  Handle data
-                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                DocumentReference documentReference =  firestore.collection("users").document(Objects.requireNonNull(firebaseAuth.getUid()));
-                documentReference.get().addOnSuccessListener(documentSnapshot -> {
-                    if(task.isCanceled()) {
-                        showToast("Login failed!");
-                    }
-
-                    if(task.isSuccessful()) {
-                        User user = documentSnapshot.toObject(User.class);
-                        ProfileViewModel profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
-                        profileViewModel.setUserMutableLiveData(new MutableLiveData<>(user));
-                    }
-                });
-
-                Navigation.findNavController(root).navigate(R.id.action_signInFragment_to_homeFragment);
             });
         });
     }

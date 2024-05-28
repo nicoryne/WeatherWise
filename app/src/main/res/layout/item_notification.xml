@@ -24,12 +24,9 @@
                 android:id="@+id/ivIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/peach_yellow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/water"
-                tools:srcCompat="@drawable/water" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvNotificationMessage"
@@ -37,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:fontFamily="@font/be_vietnam_bold"
-                android:text="Rehydrate yourself"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:fontFamily="@font/be_vietnam_bold"
-                android:text="Every 2 hours"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivIcon"

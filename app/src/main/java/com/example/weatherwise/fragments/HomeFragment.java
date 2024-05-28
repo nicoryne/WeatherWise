@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
 
         fragments = new ArrayList<>();
         fragments.add(new HomeTemperatureFragment());
-        fragments.add(new HomeFitnessFragment());
+        fragments.add(new HomeRainFragment());
 
         notifications = new ArrayList<>();
         DateTime dateTime = DateTime.newBuilder().setSeconds((int) System.currentTimeMillis() / 1000).build();

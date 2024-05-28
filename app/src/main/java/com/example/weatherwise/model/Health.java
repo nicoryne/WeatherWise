@@ -1,6 +1,6 @@
 package com.example.weatherwise.model;
 
-public class Fitness {
+public class Health {
 
     private int steps;
 
@@ -11,6 +11,8 @@ public class Fitness {
     private int streak;
 
     private double waterIntake;
+
+    private double waterConsumption;
 
     public int getSteps() {
         return steps;
@@ -50,5 +52,13 @@ public class Fitness {
 
     public void setStreak(int streak) {
         this.streak = streak;
+    }
+
+    public double getWaterConsumption() {
+        return waterConsumption;
+    }
+
+    public void setWaterConsumption(double waterConsumption) {
+        this.waterConsumption = waterConsumption;
     }
 }

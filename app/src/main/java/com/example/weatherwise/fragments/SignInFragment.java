@@ -12,12 +12,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.FragmentSigninBinding;
 import com.example.weatherwise.databinding.FragmentTemplateBinding;
+import com.example.weatherwise.model.Health;
+import com.example.weatherwise.model.HydrationSetting;
 import com.example.weatherwise.model.User;
+import com.example.weatherwise.viewmodels.HealthViewModel;
 import com.example.weatherwise.viewmodels.ProfileViewModel;
+import com.example.weatherwise.worker.HydrationReminderWorker;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class SignInFragment extends Fragment {
 
@@ -85,8 +93,9 @@ public class SignInFragment extends Fragment {
 
                    //  Handle data
                    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                   DocumentReference documentReference =  firestore.collection("users").document(Objects.requireNonNull(firebaseAuth.getUid()));
-                   documentReference.get().addOnSuccessListener(documentSnapshot -> {
+                   DocumentReference userRef =  firestore.collection("users").document(Objects.requireNonNull(firebaseAuth.getUid()));
+                   DocumentReference hydrationSetting =  firestore.collection("hydration_setting").document(Objects.requireNonNull(firebaseAuth.getUid()));
+                   userRef.get().addOnSuccessListener(documentSnapshot -> {
                        if(task.isSuccessful()) {
                            User user = documentSnapshot.toObject(User.class);
                            ProfileViewModel profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
@@ -95,6 +104,18 @@ public class SignInFragment extends Fragment {
 
                        if(task.isCanceled() || !(task.isSuccessful())) {
                            showToast("Error fetching user credentials!");
+                       }
+                   });
+
+                   hydrationSetting.get().addOnSuccessListener(documentSnapshot -> {
+                       if(task.isSuccessful()) {
+                           HydrationSetting userHydrationSetting = documentSnapshot.toObject(HydrationSetting.class);
+                           HealthViewModel healthViewModel = new ViewModelProvider(requireActivity()).get(HealthViewModel.class);
+                           healthViewModel.setHydrationSettingMutableLiveData(new MutableLiveData<>(userHydrationSetting));
+                       }
+
+                       if(task.isCanceled() || !(task.isSuccessful())) {
+                           showToast("Error fetching user hydration settings");
                        }
                    });
 

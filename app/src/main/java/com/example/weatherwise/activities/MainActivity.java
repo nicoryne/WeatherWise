@@ -13,8 +13,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -25,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.weatherwise.HydrationReminderReceiver;
 import com.example.weatherwise.R;
 import com.example.weatherwise.api.DataCallback;
 import com.example.weatherwise.manager.WeatherManager;
@@ -47,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     private HomeViewModel homeViewModel;
     private WeatherManager weatherManager;
     private LocationManager locationManager;
-
     private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
 
     @Override
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         locationManager.initialize(this);
         locationManager.setLocationUpdateListener(this);
         locationManager.startLocationUpdates(this);
+        createNotificationChannel();
     }
 
     @Override
@@ -165,9 +169,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     }
 
     private void handleFloatingPhoneButton() {
-        binding.btnFloatingPhone.setOnClickListener(v -> {
-            makePhoneCall();
-        });
+        binding.btnFloatingPhone.setOnClickListener(v -> makePhoneCall());
     }
 
     private void handleViewModel() {
@@ -190,16 +192,13 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     }
 
     private void createNotificationChannel() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "WeatherWiseReminderChannel";
-            String description = "Channel for Weather Wise Notifications";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("WeatherWise", name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        CharSequence name = "WeatherWiseReminderChannel";
+        String description = "Channel for Weather Wise Notifications";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel("WeatherWise", name, importance);
+        channel.setDescription(description);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 
     private void showBottomNavBar() {

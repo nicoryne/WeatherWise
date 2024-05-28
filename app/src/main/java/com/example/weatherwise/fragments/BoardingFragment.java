@@ -46,12 +46,8 @@ public class BoardingFragment extends Fragment {
     }
 
     private void handleLoginButton() {
-        binding.btnLogin.setOnClickListener(v -> {
-            Navigation.findNavController(root).navigate(R.id.action_boardingFragment_to_signInFragment);
-        });
+        binding.btnLogin.setOnClickListener(v -> Navigation.findNavController(root).navigate(R.id.action_boardingFragment_to_signInFragment));
 
-        binding.btnSignUp.setOnClickListener(v -> {
-            Navigation.findNavController(root).navigate(R.id.action_boardingFragment_to_signUpFragment);
-        });
+        binding.btnSignUp.setOnClickListener(v -> Navigation.findNavController(root).navigate(R.id.action_boardingFragment_to_signUpFragment));
     }
 }

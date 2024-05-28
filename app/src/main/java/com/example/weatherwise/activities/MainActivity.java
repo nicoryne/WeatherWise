@@ -13,10 +13,13 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -120,8 +123,9 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         bottomNavigationScreens = new HashSet<>();
         bottomNavigationScreens.add(R.id.homeFragment);
         bottomNavigationScreens.add(R.id.profileFragment);
-        bottomNavigationScreens.add(R.id.healthFragment);
+        bottomNavigationScreens.add(R.id.mapFragment);
         bottomNavigationScreens.add(R.id.gameFragment);
+        bottomNavigationScreens.add(R.id.healthFragment);
     }
 
     private void setupMainNavigationController() {
@@ -183,6 +187,19 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(phoneNumber));
         startActivity(callIntent);
+    }
+
+    private void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "WeatherWiseReminderChannel";
+            String description = "Channel for Weather Wise Notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("WeatherWise", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void showBottomNavBar() {

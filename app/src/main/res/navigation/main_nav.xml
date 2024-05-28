@@ -107,13 +107,18 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/healthFragment"
-        android:name="com.example.weatherwise.fragments.HealthFragment"
-        android:label="fragment_health"
-        tools:layout="@layout/fragment_health" />
-    <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.weatherwise.fragments.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.weatherwise.fragments.MapFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/healthFragment"
+        android:name="com.example.weatherwise.fragments.HealthFragment"
+        android:label="fragment_health"
+        tools:layout="@layout/fragment_health" />
 </navigation>

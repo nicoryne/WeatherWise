@@ -6,41 +6,332 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HealthFragment">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_googleMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <LinearLayout
-        android:id="@+id/layoutContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/rounded_shape"
-        android:backgroundTint="@color/white"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvMeters"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardSteps"
+                android:layout_width="180dp"
+                android:layout_height="120dp"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="@color/salmon"
+                android:elevation="18dp"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iconSteps"
+                    android:layout_width="52dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/steps" />
+
+                <TextView
+                    android:id="@+id/tvStepsTaken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="Steps Taken Today "
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/iconSteps"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSteps"
+                    android:layout_width="83dp"
+                    android:layout_height="53dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="3000"
+                    android:textColor="@color/white"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/iconSteps"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardDistance"
+                android:layout_width="180dp"
+                android:layout_height="120dp"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="@color/salmon"
+                android:elevation="18dp"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iconDistance"
+                    android:layout_width="52dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/distance" />
+
+                <TextView
+                    android:id="@+id/tvDistanceTravelled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="Kilometers Travelled"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/iconDistance"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="14.4"
+                    android:textColor="@color/white"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/iconDistance"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="3 Meters" />
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-        <Space
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardWater"
+                android:layout_width="180dp"
+                android:layout_height="120dp"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="@color/salmon"
+                android:elevation="18dp"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iconWater"
+                    android:layout_width="57dp"
+                    android:layout_height="39dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/glass" />
+
+                <TextView
+                    android:id="@+id/tvWaterConsumed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="Liters of Water Drank"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/iconWater"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvWater"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="2 l"
+                    android:textColor="@color/white"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/iconWater"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardHydration"
+                android:layout_width="180dp"
+                android:layout_height="120dp"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="@color/salmon"
+                android:elevation="18dp"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/iconHydration"
+                    android:layout_width="57dp"
+                    android:layout_height="39dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hydration" />
+
+                <TextView
+                    android:id="@+id/tvHydrationLevels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="Hydration Level"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/iconHydration"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvHydration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/be_vietnam_bold"
+                    android:text="Good"
+                    android:textColor="@color/white"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/iconHydration"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="50dp" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvNotifyWhen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                android:layout_weight="0"
+                android:fontFamily="@font/be_vietnam_bold"
+                android:text="Notify me to rehydrate every"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/be_vietnam_bold"
+                        android:gravity="center"
+                        android:text="Hours"
+                        android:textColor="@color/light_salmon"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <NumberPicker
+                        android:id="@+id/npHour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvMinutes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/be_vietnam_bold"
+                        android:gravity="center"
+                        android:text="Minutes"
+                        android:textColor="@color/light_salmon"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <NumberPicker
+                        android:id="@+id/npMinute"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnReset"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/peach_orange"
+                    android:elevation="16dp"
+                    android:scaleType="center"
+                    android:src="@drawable/reset"
+                    tools:src="@drawable/reset" />
+
+                <ImageButton
+                    android:id="@+id/btnSaveTime"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/salmon"
+                    android:src="@drawable/check_filled"
+                    tools:src="@drawable/check_filled" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnLocate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="64dp"
+                android:text="Locate Medical Center"
+                app:icon="@android:drawable/ic_dialog_map" />
+        </LinearLayout>
 
     </LinearLayout>
-
 </FrameLayout>
-

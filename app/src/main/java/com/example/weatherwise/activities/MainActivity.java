@@ -22,13 +22,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.weatherwise.HydrationReminderReceiver;
 import com.example.weatherwise.R;
 import com.example.weatherwise.api.DataCallback;
 import com.example.weatherwise.manager.WeatherManager;

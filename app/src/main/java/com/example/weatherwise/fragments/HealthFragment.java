@@ -3,7 +3,6 @@ package com.example.weatherwise.fragments;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.work.PeriodicWorkRequest;
@@ -35,7 +33,6 @@ import com.example.weatherwise.worker.HydrationReminderWorker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.type.DateTime;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -151,7 +148,7 @@ public class HealthFragment extends Fragment implements SensorEventListener {
     @SuppressLint("SetTextI18n")
     private void setHealthSettingsData(Health health) {
         binding.tvSteps.setText(String.valueOf(health.getSteps()));
-        binding.tvDistance.setText(String.valueOf(health.getDistance()));
+        binding.tvDistance.setText(String.valueOf((health.getSteps() / 1000.0) * 0.74));
         binding.tvWater.setText(health.getWaterConsumption() + " l");
         setHydrationLevel(health.getWaterConsumption());
     }

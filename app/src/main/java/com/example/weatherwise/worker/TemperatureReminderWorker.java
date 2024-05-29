@@ -9,10 +9,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.weatherwise.R;
+import com.example.weatherwise.viewmodels.HomeViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -20,33 +22,35 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class HydrationReminderWorker extends Worker {
+public class TemperatureReminderWorker extends Worker {
 
     private static final String CHANNEL_ID = "WeatherWiseReminderChannel";
 
-    public HydrationReminderWorker(@NonNull Context context, @NonNull WorkerParameters params) {
+    public TemperatureReminderWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
     }
 
     @NonNull
     @Override
     public Result doWork() {
-        // Send notification
-        sendNotification();
+        double currentTemperature = getInputData().getDouble("temperature", 0.0);
 
-        // Add notification to Firestore
-        addNotificationToFirestore();
+        if (currentTemperature > 29) {
+            sendTemperatureNotification(currentTemperature);
+            addNotificationToFirestore(currentTemperature);
+        }
 
         return Result.success();
     }
 
-    private void sendNotification() {
+
+    private void sendTemperatureNotification(double temperature) {
         createNotificationChannel();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                 .setSmallIcon(R.drawable.weatherwise_logo)
-                .setContentTitle("Time to Rehydrate")
-                .setContentText("It's time to drink water!")
+                .setContentTitle("Temperature Alert")
+                .setContentText("The current temperature is " + temperature + "°C, stay safe!")
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.light_salmon))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_ALL)
@@ -67,22 +71,22 @@ public class HydrationReminderWorker extends Worker {
         notificationManager.createNotificationChannel(channel);
     }
 
-    private void addNotificationToFirestore() {
+    private void addNotificationToFirestore(double temp) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         Map<String, Object> notificationData = new HashMap<>();
-        notificationData.put("message", "Time to Rehydrate");
+        notificationData.put("message", "Temperature Alert");
         notificationData.put("timestamp", System.currentTimeMillis());
         notificationData.put("userId", userId);
 
         firestore.collection("notifications").add(notificationData)
                 .addOnSuccessListener(documentReference -> {
-                    Log.i("HydrationReminderWorker", "Added new notification");
+                    Log.i("TemperatureReminderWorker", "Added new notification");
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("HydrationReminderWorker", "Failed to add new notification");
+                    Log.e("TemperatureReminderWorker", "Failed to add new notification");
                 });
     }
 }

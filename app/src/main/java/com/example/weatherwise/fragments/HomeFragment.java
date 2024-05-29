@@ -89,7 +89,12 @@ public class HomeFragment extends Fragment {
                                 String message = document.getString("message");
                                 long timestamp = document.getLong("timestamp");
                                 DateTime dateTime = DateTime.newBuilder().setSeconds((int) (timestamp / 1000)).build();
-                                Notification notification = new Notification(message, "Rehydrate yourself", R.drawable.water, dateTime);
+                                Notification notification;
+                                if(Objects.equals(message, "Temperature Alert")) {
+                                    notification = new Notification(message, "Keep safe", R.drawable.heat, dateTime);
+                                } else {
+                                    notification = new Notification(message, "Rehydrate yourself", R.drawable.water, dateTime);
+                                }
                                 notifications.add(notification);
                             }
                         }

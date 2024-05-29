@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/be_vietnam_bold"
-                    android:text="Steps Taken Today "
+                    android:text="Total Steps Taken"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@+id/iconSteps"

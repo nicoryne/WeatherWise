@@ -10,6 +10,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -40,6 +43,7 @@ import com.example.weatherwise.model.CurrentWeatherData;
 import com.example.weatherwise.model.Health;
 import com.example.weatherwise.viewmodels.HealthViewModel;
 import com.example.weatherwise.viewmodels.HomeViewModel;
+import com.example.weatherwise.worker.TemperatureReminderWorker;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -117,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
             @Override
             public void onCallback(CurrentWeatherData data) {
                 homeViewModel.setCurrentWeatherDataMutableLiveData(new MutableLiveData<>(data));
+                double currentTemperature = Objects.requireNonNull(homeViewModel.getCurrentWeatherLiveData().getValue()).getCurrentWeather().getTemperature();
+                enqueueTemperatureWorker(currentTemperature);
                 Log.d(DEBUG_TAG, "Weather data fetched successfully");
             }
 
@@ -180,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     }
 
     private void makePhoneCall() {
-        String phoneNumber = "tel:+639755620625";
+        String phoneNumber = "tel:+639325377770";
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
         } else {
@@ -202,6 +208,18 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         channel.setDescription(description);
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
+    }
+
+    private void enqueueTemperatureWorker(double temperature) {
+        Data inputData = new Data.Builder()
+                .putDouble("temperature", temperature)
+                .build();
+
+        OneTimeWorkRequest temperatureWorkRequest = new OneTimeWorkRequest.Builder(TemperatureReminderWorker.class)
+                .setInputData(inputData)
+                .build();
+
+        WorkManager.getInstance(this).enqueue(temperatureWorkRequest);
     }
 
     private void showBottomNavBar() {

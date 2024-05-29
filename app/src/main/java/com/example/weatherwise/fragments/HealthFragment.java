@@ -224,7 +224,7 @@ public class HealthFragment extends Fragment implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
-            totalSteps++;
+            totalSteps = (int) event.values[0];
             binding.tvSteps.setText(String.valueOf(totalSteps));
             saveStepsLocally(totalSteps);
             updateStepsInFirebase();

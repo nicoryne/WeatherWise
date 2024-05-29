@@ -1,5 +1,6 @@
 package com.example.weatherwise.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -9,13 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.FragmentGameBinding;
+import com.example.weatherwise.model.GameScore;
+import com.example.weatherwise.viewmodels.GameViewModel;
+import com.example.weatherwise.viewmodels.HealthViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -24,6 +33,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class GameFragment extends Fragment {
 
@@ -34,6 +44,11 @@ public class GameFragment extends Fragment {
 
     private int currentQuestionIndex = 0;
 
+    private int streak = 0;
+
+    private GameViewModel gameViewModel;
+
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +57,9 @@ public class GameFragment extends Fragment {
 
         setup();
         loadQuestion(currentQuestionIndex);
+        gameViewModel = new ViewModelProvider(requireActivity()).get(GameViewModel.class);
+        GameScore gameScore = gameViewModel.getGameScoreLiveData().getValue();
+        binding.tvHighScore.setText("High Score: " + gameScore.getHighScore());
         return root;
     }
 
@@ -67,9 +85,13 @@ public class GameFragment extends Fragment {
         binding.btnFourth.setOnClickListener(v -> checkAnswer((boolean) binding.btnFourth.getTag(), binding.btnFourth));
     }
 
+    @SuppressLint("SetTextI18n")
     private void checkAnswer(boolean isCorrect, Button button) {
         if (isCorrect) {
             button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), com.google.android.libraries.places.R.color.quantum_googgreen)));
+            streak++;
+            binding.tvStreak.setText("Streak: " + streak);
+            gameViewModel.getGameScoreLiveData().observe(getViewLifecycleOwner(), this::updateHighScore);
         } else {
             button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), com.google.android.libraries.places.R.color.quantum_googred)));
             highlightCorrectAnswer();
@@ -83,8 +105,33 @@ public class GameFragment extends Fragment {
                 loadQuestion(currentQuestionIndex);
             } else {
                 // Quiz is finished, handle accordingly
+                binding.tvQuestion.setText("Quiz finished!");
+                binding.btnFirst.setVisibility(View.GONE);
+                binding.btnSecond.setVisibility(View.GONE);
+                binding.btnThird.setVisibility(View.GONE);
+                binding.btnFourth.setVisibility(View.GONE);
+
             }
         }, 1000);
+    }
+
+    private void updateHighScore(GameScore gameScore) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference gameScoreRef = firestore.collection("game_score").document(Objects.requireNonNull(firebaseAuth.getUid()));
+        if (gameScore != null && gameScore.getHighScore() < streak) {
+            gameScore.setHighScore(streak); // Update the high score with the current streak
+
+            // Update the game score document in Firestore
+            gameScoreRef.update("highScore", streak)
+                    .addOnSuccessListener(aVoid -> {
+                        // High score updated successfully
+                        showToast("High score updated successfully");
+                    })
+                    .addOnFailureListener(e -> {
+                        showToast("Error updating high score: " + e.getMessage());
+                    });
+        }
     }
 
     private void highlightCorrectAnswer() {
@@ -163,6 +210,10 @@ public class GameFragment extends Fragment {
             Log.e("LoadJSON", "Error loading JSON file: " + e.getMessage());
         }
         return json;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 

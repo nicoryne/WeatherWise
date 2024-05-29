@@ -56,10 +56,6 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     private WeatherManager weatherManager;
     private LocationManager locationManager;
     private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
-    private SensorManager sensorManager;
-    private Sensor stepSensor;
-    private int totalSteps = 0;
-    private int previewsTotalSteps = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

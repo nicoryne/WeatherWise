@@ -81,7 +81,6 @@ public class MapFragment extends Fragment implements LocationManager.LocationUpd
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 
     private void setup() {

@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.weatherwise.model.Health;
 import com.example.weatherwise.model.HydrationSetting;
 
-public class HealthViewModel extends ViewModel {
+import java.util.Objects;
 
-    private MutableLiveData<Integer> stepsMutableLiveData;
+public class HealthViewModel extends ViewModel {
 
     private MutableLiveData<Health> healthMutableLiveData;
     private MutableLiveData<HydrationSetting> hydrationSettingMutableLiveData;
@@ -22,19 +22,19 @@ public class HealthViewModel extends ViewModel {
         this.hydrationSettingMutableLiveData = hydrationSettingMutableLiveData;
     }
 
-    public LiveData<Integer> getStepsLiveData() {
-        return stepsMutableLiveData;
-    }
-
-    public void setStepsMutableLiveData(MutableLiveData<Integer> stepsMutableLiveData) {
-        this.stepsMutableLiveData = stepsMutableLiveData;
-    }
-
     public LiveData<Health> getHealthLiveData() {
         return healthMutableLiveData;
     }
 
     public void setHealthMutableLiveData(MutableLiveData<Health> healthMutableLiveData) {
         this.healthMutableLiveData = healthMutableLiveData;
+    }
+
+    public void updateWaterConsumption(double waterConsumption) {
+        Health currentHealth = healthMutableLiveData.getValue();
+        if (currentHealth != null) {
+            currentHealth.setWaterConsumption(waterConsumption);
+            healthMutableLiveData.setValue(currentHealth);
+        }
     }
 }

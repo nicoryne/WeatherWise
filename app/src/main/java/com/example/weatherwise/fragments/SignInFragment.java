@@ -16,9 +16,11 @@ import androidx.navigation.Navigation;
 
 import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.FragmentSigninBinding;
+import com.example.weatherwise.model.GameScore;
 import com.example.weatherwise.model.Health;
 import com.example.weatherwise.model.HydrationSetting;
 import com.example.weatherwise.model.User;
+import com.example.weatherwise.viewmodels.GameViewModel;
 import com.example.weatherwise.viewmodels.HealthViewModel;
 import com.example.weatherwise.viewmodels.ProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -97,6 +99,7 @@ public class SignInFragment extends Fragment {
                    DocumentReference userRef =  firestore.collection("users").document(Objects.requireNonNull(firebaseAuth.getUid()));
                    DocumentReference hydrationSetting =  firestore.collection("hydration_setting").document(Objects.requireNonNull(firebaseAuth.getUid()));
                    DocumentReference health = firestore.collection("health").document(Objects.requireNonNull(firebaseAuth.getUid()));
+                   DocumentReference gameScore = firestore.collection("game_score").document(Objects.requireNonNull(firebaseAuth.getUid()));
                    userRef.get().addOnSuccessListener(documentSnapshot -> {
                        if(task.isSuccessful()) {
                            User user = documentSnapshot.toObject(User.class);
@@ -131,6 +134,28 @@ public class SignInFragment extends Fragment {
 
                        if(task.isCanceled() || !(task.isSuccessful())) {
                            showToast("Error fetching user hydration settings");
+                       }
+                   });
+
+                   gameScore.get().addOnCompleteListener(gameScoreTask -> {
+                       if (gameScoreTask.isSuccessful()) {
+                           DocumentSnapshot document = gameScoreTask.getResult();
+                           if (document.exists()) {
+                               GameScore score = document.toObject(GameScore.class);
+                               GameViewModel gameViewModel = new ViewModelProvider(requireActivity()).get(GameViewModel.class);
+                               gameViewModel.setGameScoreMutableLiveData(new MutableLiveData<>(score));
+                           } else {
+                               GameScore initialScore = new GameScore();
+                               initialScore.setHighScore(0);
+                               gameScore.set(initialScore)
+                                       .addOnSuccessListener(aVoid -> {
+                                           GameViewModel gameViewModel = new ViewModelProvider(requireActivity()).get(GameViewModel.class);
+                                           gameViewModel.setGameScoreMutableLiveData(new MutableLiveData<>(initialScore));
+                                       })
+                                       .addOnFailureListener(e -> showToast("Error creating game score document: " + e.getMessage()));
+                           }
+                       } else {
+                           showToast("Error fetching game score: " + task.getException().getMessage());
                        }
                    });
 

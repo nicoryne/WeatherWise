@@ -1,7 +1,9 @@
 package com.example.weatherwise.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -50,7 +52,6 @@ public class HealthFragment extends Fragment implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor stepSensor;
     private int totalSteps = 0;
-    private int previousTotalSteps = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,11 +85,57 @@ public class HealthFragment extends Fragment implements SensorEventListener {
         healthViewModel.getHealthLiveData().observe(getViewLifecycleOwner(), this::setHealthSettingsData);
         sensorManager = (SensorManager) requireContext().getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
-            stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
             if (stepSensor == null) {
                 showToast("Step sensor unavailable!");
             }
         }
+        binding.iconWater.setOnClickListener(v -> {
+            String[] waterLevels = {"240ml", "350ml", "470ml", "600ml"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setItems(waterLevels, (dialog, which) -> {
+                double waterConsumption = 0.0;
+                switch (which) {
+                    case 0:
+                        waterConsumption = 0.240;
+                        break;
+                    case 1:
+                        waterConsumption = 0.350;
+                        break;
+                    case 2:
+                        waterConsumption = 0.470;
+                        break;
+                    case 3:
+                        waterConsumption = 0.600;
+                        break;
+                }
+
+                Health currentHealth = healthViewModel.getHealthLiveData().getValue();
+                if (currentHealth != null) {
+                    double currentWaterConsumption = currentHealth.getWaterConsumption();
+                    double newWaterConsumption = currentWaterConsumption + waterConsumption;
+                    healthViewModel.updateWaterConsumption(newWaterConsumption);
+                    updateWaterConsumptionInFirestore(newWaterConsumption);
+                }
+            });
+            builder.show();
+        });
+    }
+
+    private void updateWaterConsumptionInFirestore(double waterConsumption) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        DocumentReference userRef = firestore.collection("health").document(userId);
+
+        Map<String, Object> healthMap = new HashMap<>();
+        healthMap.put("waterConsumption", waterConsumption);
+
+        userRef.update(healthMap)
+                .addOnSuccessListener(aVoid -> Log.d(DEBUG_TAG, "Water consumption updated successfully in Firestore"))
+                .addOnFailureListener(e -> Log.e(DEBUG_TAG, "Error updating water consumption in Firestore", e));
     }
 
     private void resetTime() {
@@ -179,12 +226,11 @@ public class HealthFragment extends Fragment implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            totalSteps = (int) event.values[0];
-            int currentSteps = totalSteps - previousTotalSteps;
-
-            saveStepsLocally(currentSteps);
-            binding.tvSteps.setText(getLocalSteps());
+        if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+            totalSteps++;
+            binding.tvSteps.setText(String.valueOf(totalSteps));
+            saveStepsLocally(totalSteps);
+            updateStepsInFirebase();
         }
     }
 

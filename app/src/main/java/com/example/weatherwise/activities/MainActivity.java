@@ -20,6 +20,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +37,8 @@ import com.example.weatherwise.manager.WeatherManager;
 import com.example.weatherwise.databinding.ActivityMainBinding;
 import com.example.weatherwise.manager.LocationManager;
 import com.example.weatherwise.model.CurrentWeatherData;
+import com.example.weatherwise.model.Health;
+import com.example.weatherwise.viewmodels.HealthViewModel;
 import com.example.weatherwise.viewmodels.HomeViewModel;
 
 import java.util.HashSet;
@@ -50,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     private WeatherManager weatherManager;
     private LocationManager locationManager;
     private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
+    private SensorManager sensorManager;
+    private Sensor stepSensor;
+    private int totalSteps = 0;
+    private int previewsTotalSteps = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
         bottomNavigationScreens = new HashSet<>();
         bottomNavigationScreens.add(R.id.homeFragment);
         bottomNavigationScreens.add(R.id.profileFragment);
-        bottomNavigationScreens.add(R.id.mapFragment);
         bottomNavigationScreens.add(R.id.gameFragment);
         bottomNavigationScreens.add(R.id.healthFragment);
     }
@@ -175,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements LocationManager.L
     }
 
     private void makePhoneCall() {
-        String phoneNumber = "tel:+639938948592";
+        String phoneNumber = "tel:+639755620625";
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
         } else {

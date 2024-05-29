@@ -1,59 +1,66 @@
 package com.example.weatherwise.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
 import com.example.weatherwise.R;
-import com.example.weatherwise.activities.MainActivity;
 import com.example.weatherwise.databinding.FragmentHealthBinding;
-import com.example.weatherwise.databinding.FragmentTemplateBinding;
+import com.example.weatherwise.model.Health;
 import com.example.weatherwise.model.HydrationSetting;
 import com.example.weatherwise.viewmodels.HealthViewModel;
-import com.example.weatherwise.viewmodels.ProfileViewModel;
 import com.example.weatherwise.worker.HydrationReminderWorker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.ktx.Firebase;
+import com.google.type.DateTime;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class HealthFragment extends Fragment {
+public class HealthFragment extends Fragment implements SensorEventListener {
 
     private final String DEBUG_TAG = "HealthFragment";
 
     private FragmentHealthBinding binding;
     private View root;
-    private HealthViewModel model;
+    private HealthViewModel healthViewModel;
+    private SensorManager sensorManager;
+    private Sensor stepSensor;
+    private int totalSteps = 0;
+    private int previousTotalSteps = 0;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHealthBinding.inflate(getLayoutInflater());
+        binding = FragmentHealthBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
         setup();
@@ -72,8 +79,16 @@ public class HealthFragment extends Fragment {
         binding.npMinute.setMaxValue(60);
         binding.btnSaveTime.setOnClickListener(v -> saveTime());
         binding.btnReset.setOnClickListener(v -> resetTime());
-        model = new ViewModelProvider(requireActivity()).get(HealthViewModel.class);
-        model.getHydrationSettingLiveData().observe(getViewLifecycleOwner(), this::setHydrationSettingData);
+        healthViewModel = new ViewModelProvider(requireActivity()).get(HealthViewModel.class);
+        healthViewModel.getHydrationSettingLiveData().observe(getViewLifecycleOwner(), this::setHydrationSettingData);
+        healthViewModel.getHealthLiveData().observe(getViewLifecycleOwner(), this::setHealthSettingsData);
+        sensorManager = (SensorManager) requireContext().getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager != null) {
+            stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            if (stepSensor == null) {
+                showToast("Step sensor unavailable!");
+            }
+        }
     }
 
     private void resetTime() {
@@ -84,6 +99,29 @@ public class HealthFragment extends Fragment {
     private void setHydrationSettingData(HydrationSetting hydrationSettingData) {
         binding.npHour.setValue(hydrationSettingData.getHydrationHour());
         binding.npMinute.setValue(hydrationSettingData.getHydrationMinute());
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setHealthSettingsData(Health health) {
+        binding.tvSteps.setText(String.valueOf(health.getSteps()));
+        binding.tvDistance.setText(String.valueOf(health.getDistance()));
+        binding.tvWater.setText(health.getWaterConsumption() + " l");
+        setHydrationLevel(health.getWaterConsumption());
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setHydrationLevel(double waterConsumption) {
+        String message = null;
+
+        if (waterConsumption >= 0.0 && waterConsumption <= 1.0) {
+           message = "Bad";
+       } else if (waterConsumption > 1.0 && waterConsumption <= 2.0) {
+           message = "Good";
+       } else if (waterConsumption >= 2.0) {
+           message = "Excellent";
+       }
+
+       binding.tvHydration.setText(message);
     }
 
     private void saveTime() {
@@ -109,7 +147,7 @@ public class HealthFragment extends Fragment {
     }
 
     private void scheduleHydrationReminders() {
-        model.getHydrationSettingLiveData().observe(getViewLifecycleOwner(), hydrationSetting -> {
+        healthViewModel.getHydrationSettingLiveData().observe(getViewLifecycleOwner(), hydrationSetting -> {
             if (hydrationSetting != null) {
                 long interval = TimeUnit.HOURS.toMillis(hydrationSetting.getHydrationHour()) +
                         TimeUnit.MINUTES.toMillis(hydrationSetting.getHydrationMinute());
@@ -120,5 +158,66 @@ public class HealthFragment extends Fragment {
                 WorkManager.getInstance(requireContext()).enqueue(hydrationWorkRequest);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (stepSensor != null) {
+            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (stepSensor != null) {
+            sensorManager.unregisterListener(this);
+        }
+        updateStepsInFirebase();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+            totalSteps = (int) event.values[0];
+            int currentSteps = totalSteps - previousTotalSteps;
+
+            saveStepsLocally(currentSteps);
+            binding.tvSteps.setText(getLocalSteps());
+        }
+    }
+
+    private void saveStepsLocally(int steps) {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("step_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("steps", steps);
+        editor.apply();
+    }
+
+    private int getLocalSteps() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("step_prefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getInt("steps", 0);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Handle changes in sensor accuracy if needed
+    }
+
+    private void updateStepsInFirebase() {
+        int steps = getLocalSteps();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        String userId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        DocumentReference userRef = firestore.collection("health").document(userId);
+
+        Map<String, Object> healthMap = new HashMap<>();
+        healthMap.put("steps", steps);
+
+        userRef.update(healthMap)
+                .addOnSuccessListener(aVoid -> Log.d(DEBUG_TAG, "Steps updated successfully in Firebase"))
+                .addOnFailureListener(e -> Log.e(DEBUG_TAG, "Error updating steps in Firebase", e));
     }
 }

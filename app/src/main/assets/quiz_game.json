@@ -1,0 +1,94 @@
+{
+  "questions": [
+    {
+      "question": "What is the recommended SPF level for sunscreen when spending extended time outdoors in the summer?",
+      "options": [
+        {"option": "15", "correct": false},
+        {"option": "30", "correct": true},
+        {"option": "50", "correct": false},
+        {"option": "100", "correct": false}
+      ]
+    },
+    {
+      "question": "Which type of clothing is best for staying cool and protecting against the sun during hot weather?",
+      "options": [
+        {"option": "Dark, thick fabrics", "correct": false},
+        {"option": "Tight-fitting clothes", "correct": false},
+        {"option": "Loose, light-colored clothing", "correct": true},
+        {"option": "Heavy wool garments", "correct": false}
+      ]
+    },
+    {
+      "question": "What is the main risk associated with exercising outdoors during high levels of air pollution?",
+      "options": [
+        {"option": "Increased risk of dehydration", "correct": false},
+        {"option": "Respiratory problems", "correct": true},
+        {"option": "Enhanced athletic performance", "correct": false},
+        {"option": "Skin burns", "correct": false}
+      ]
+    },
+    {
+      "question": "How much water should you drink daily during hot weather to stay properly hydrated?",
+      "options": [
+        {"option": "2 cups", "correct": false},
+        {"option": "4 cups", "correct": false},
+        {"option": "8 cups", "correct": false},
+        {"option": "12 cups", "correct": true}
+      ]
+    },
+    {
+      "question": "What is the best time of day to exercise outdoors in the summer to avoid heat-related illnesses?",
+      "options": [
+        {"option": "Noon", "correct": false},
+        {"option": "Early morning", "correct": true},
+        {"option": "Afternoon", "correct": false},
+        {"option": "Evening", "correct": false}
+      ]
+    },
+    {
+      "question": "Which vitamin is primarily obtained from sun exposure and is crucial for bone health?",
+      "options": [
+        {"option": "Vitamin A", "correct": false},
+        {"option": "Vitamin B12", "correct": false},
+        {"option": "Vitamin C", "correct": false},
+        {"option": "Vitamin D", "correct": true}
+      ]
+    },
+    {
+      "question": "What is the primary benefit of wearing a hat while outdoors in sunny weather?",
+      "options": [
+        {"option": "Improved vision", "correct": false},
+        {"option": "Better fashion sense", "correct": false},
+        {"option": "Protection from UV rays", "correct": true},
+        {"option": "Enhanced breathing", "correct": false}
+      ]
+    },
+    {
+      "question": "How does high humidity affect the body's ability to cool down during exercise?",
+      "options": [
+        {"option": "Speeds up cooling", "correct": false},
+        {"option": "No effect on cooling", "correct": false},
+        {"option": "Slows down cooling", "correct": true},
+        {"option": "Enhances sweating", "correct": false}
+      ]
+    },
+    {
+      "question": "What is a common symptom of heat exhaustion?",
+      "options": [
+        {"option": "Shivering", "correct": false},
+        {"option": "Dizziness", "correct": true},
+        {"option": "Nausea", "correct": true},
+        {"option": "B and C", "correct": false}
+      ]
+    },
+    {
+      "question": "Which activity is safest to perform during a thunderstorm?",
+      "options": [
+        {"option": "Swimming in a pool", "correct": false},
+        {"option": "Golfing", "correct": false},
+        {"option": "Hiking", "correct": false},
+        {"option": "Staying indoors", "correct": true}
+      ]
+    }
+  ]
+}

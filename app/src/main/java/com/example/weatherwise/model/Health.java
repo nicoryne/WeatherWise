@@ -4,13 +4,9 @@ public class Health {
 
     private int steps;
 
-    private int dailyGoal;
+    private String day;
 
     private double distance;
-
-    private int streak;
-
-    private double waterIntake;
 
     private double waterConsumption;
 
@@ -22,14 +18,6 @@ public class Health {
         this.steps = steps;
     }
 
-    public int getDailyGoal() {
-        return dailyGoal;
-    }
-
-    public void setDailyGoal(int dailyGoal) {
-        this.dailyGoal = dailyGoal;
-    }
-
     public double getDistance() {
         return distance;
     }
@@ -38,27 +26,19 @@ public class Health {
         this.distance = distance;
     }
 
-    public double getWaterIntake() {
-        return waterIntake;
-    }
-
-    public void setWaterIntake(double waterIntake) {
-        this.waterIntake = waterIntake;
-    }
-
-    public int getStreak() {
-        return streak;
-    }
-
-    public void setStreak(int streak) {
-        this.streak = streak;
-    }
-
     public double getWaterConsumption() {
         return waterConsumption;
     }
 
     public void setWaterConsumption(double waterConsumption) {
         this.waterConsumption = waterConsumption;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }

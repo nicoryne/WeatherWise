@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.weatherwise.R;
 import com.example.weatherwise.databinding.FragmentMapsBinding;
@@ -86,6 +87,9 @@ public class MapFragment extends Fragment implements LocationManager.LocationUpd
     private void setup() {
         googleMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragment_googleMap);
         handleGoogleMap();
+        binding.btnMapBack.setOnClickListener(v -> {
+            Navigation.findNavController(root).navigate(R.id.healthFragment);
+        });
     }
 
     private void handleGoogleMap() {

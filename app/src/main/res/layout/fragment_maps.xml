@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="50dp"
         android:background="@drawable/rounded_shape"
         android:backgroundTint="@color/white"
         android:orientation="vertical"
@@ -38,10 +37,12 @@
             android:fontFamily="@font/be_vietnam_bold"
             android:textAlignment="viewStart" />
 
-        <Space
+        <Button
+            android:id="@+id/btnMapBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="4dp" />
+            android:text="Exit Map"
+            app:cornerRadius="32dp" />
 
     </LinearLayout>
 
